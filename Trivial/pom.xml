@@ -10,6 +10,51 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
+  <!-- https://mvnrepository.com/artifact/javax.websocket/javax.websocket-api -->
+<dependency>
+    <groupId>javax.websocket</groupId>
+    <artifactId>javax.websocket-api</artifactId>
+    <version>1.0</version>
+    <scope>provided</scope>
+</dependency>
+  
+  <dependency>  
+    <groupId>javax.servlet</groupId>  
+    <artifactId>javax.servlet-api</artifactId>  
+    <version>3.1.0</version>  
+	</dependency>  
+	<dependency>  
+	    <groupId>com.fasterxml.jackson.core</groupId>  
+	    <artifactId>jackson-core</artifactId>  
+   		<version>2.3.0</version>  
+	</dependency>  
+	<dependency>  
+    	<groupId>com.fasterxml.jackson.core</groupId>  
+   	 	<artifactId>jackson-databind</artifactId>  
+   	 	<version>2.3.0</version>  
+	</dependency>  
+	<!-- https://mvnrepository.com/artifact/org.json/json -->
+	<dependency>
+  	  <groupId>org.json</groupId>
+  	  <artifactId>json</artifactId>
+  	  <version>20171018</version>
+	</dependency>
+	
+	<dependency>  
+   		<groupId>org.springframework</groupId>  
+   		<artifactId>spring-websocket</artifactId>  
+   		<version>4.0.1.RELEASE</version>  
+	</dependency>  
+	<dependency>  
+   		<groupId>org.springframework</groupId>  
+  	 	<artifactId>spring-messaging</artifactId>  
+  	 	<version>4.0.1.RELEASE</version>  
+	</dependency>  
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.3.1</version>
+    </dependency>
     <dependency>
       <groupId>org.glassfish</groupId>
       <artifactId>bean-validator</artifactId>

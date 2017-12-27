@@ -3,24 +3,60 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<head>
+  <meta charset="UTF-8">
+  <title>Trivial</title>
+      <link rel="stylesheet" href="css/Login.css">
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>My JSP 'index.jsp' starting page</title>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-  </head>
+</head>
+
+<body>
+   <main>
+        <form class="form">
+            <div class="form__cover"></div>
+            <div class="form__loader">
+                <div class="spinner active">
+                    <svg class="spinner__circular" viewBox="25 25 50 50">
+                        <circle class="spinner__path" cx="50" cy="50" r="20" fill="none" stroke-width="4" stroke-miterlimit="10"></circle>
+                    </svg>
+                </div>
+            </div>
+            <div class="form__content">
+                <h1>Trivial</h1>
+                <div class="styled-input">
+                    <input id="username" type="text" class="styled-input__input" name="nickname">
+                    <div class="styled-input__placeholder">
+                        <span class="styled-input__placeholder-text">Username</span>
+                    </div>
+                    <div class="styled-input__circle"></div>
+                </div><div class="styled-input">
+                     <input id="password" type="text" class="styled-input__input">
+                    <div class="styled-input__placeholder">
+                        <span class="styled-input__placeholder-text">Password</span>
+                    </div>
+                    <div  class="styled-input__circle"></div>
+                </div>
+                <button type="button" class="styled-button" id="submit">
+                    <span class="styled-button__real-text-holder">
+                        <span class="styled-button__real-text">Submit</span>
+                        <span class="styled-button__moving-block face">
+                            <span class="styled-button__text-holder">
+                                <span class="styled-button__text">Submit</span>
+                            </span>
+                        </span><span class="styled-button__moving-block back">
+                            <span class="styled-button__text-holder">
+                                <span class="styled-button__text">Submit</span>
+                            </span>
+                        </span>
+                    </span>
+                </button>
+            </div>
+
+        </form>
+    </main>
   
-  <body>
-    This is my JSP page. <br>
-  </body>
+    <script  src="js/Login.js" charset="utf-8"></script>
+
+</body>
 </html>
+
