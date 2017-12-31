@@ -1,7 +1,6 @@
 
 'use strict';
-var index=document.getElementsByClassName('index')[0];
-var lobby = document.getElementsByClassName('lobby')[0];
+
 var placeholders = document.querySelectorAll('.styled-input__placeholder-text'),
     inputs = document.querySelectorAll('.styled-input__input');
 
@@ -97,43 +96,16 @@ function onClose(evt) {
 
 function onMessage(evt) { 
 	var json = JSON.parse(evt.data);
-	alert('Message Recieved');
-	if (json.result=='LoginSuccess')
-	{
-		trans(index,lobbyFn);
-	}
-		
+	if (json.result=='Success')
+		alert('lll');
+	else
+		alert(json.message||'404');
 }   
-function trans(obj,fn)
-{
-	obj.style.display='none';
-	fn();
-}
-function lobbyFn(){
-	lobby.style.display='block';
-	var title=lobby.getElementsByClassName('title')[0];
-	title.innerHTML='Trivia';
-	var roomList=lobby.getElementsByClassName('roomlist__ele');
-	alert(roomList.length);
-	var i=0;
-	for (i=0;i<5;i++)
-	{
-		roomList[i].innerHTML='<h3>'+i+'</h3>';
-
-		(function u(i){ 
-	        roomList[i].onclick = function(){ 
-	        	send();
-	            alert(i); 
-	        }; 
-	        })(i);
-	}
-	alert('done');
-}
 
 function onError(evt) { 
 }  
 
-var submitBtn=document.getElementById('submit');
+var submitBtn=document.getElementById("submit");
 submitBtn.onclick=function (){
 
 	var password=document.getElementById('password').value||0;
@@ -141,4 +113,4 @@ submitBtn.onclick=function (){
 	var messageObject = {username: username, password : password};  
 	websocket.send(JSON.stringify(messageObject));
 };
-window.addEventListener('load', init, false); 
+window.addEventListener("load", init, false); 

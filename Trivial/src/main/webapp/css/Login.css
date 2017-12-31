@@ -25,30 +25,6 @@ main {
           align-items: center;
   background: #3f2766;
 }
-.lobby{
-	display: none;
-}
-.lobby .title{
-	
-}
-.roomlist__ele{
-	display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-	position: relative;
-  width: 500px;
-  height: 200px;
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
-  padding: 10px;
-  border-radius: 5px;
-}
 .form {
   display: -webkit-box;
   display: -ms-flexbox;

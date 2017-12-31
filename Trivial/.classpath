@@ -34,6 +34,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.5"/>
-	<classpathentry kind="lib" path="WebRoot/index.jsp"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
