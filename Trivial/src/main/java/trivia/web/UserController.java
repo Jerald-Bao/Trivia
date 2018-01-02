@@ -1,6 +1,9 @@
 package trivia.web;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
+import javax.websocket.*;  
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -10,37 +13,38 @@ import org.springframework.web.servlet.ModelAndView;
 
 import trivia.dao.UserDao;
 import trivia.domain.User;
-
+import Test4Development.Ws;
 /**
- * �û�������
+ * �û�������
  */
 @Controller
-@RequestMapping(value = "/user")
 public class UserController {
     @Resource
     private UserDao userDao;
 
-    @RequestMapping("/view")
-    public String view() {
-        return "login";
-    }
-
-    @RequestMapping("/indexview")
-    public String index() {
-        return "index";
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(User model, HttpSession session) {
+    @RequestMapping(value = "/index", method = RequestMethod.POST)
+    public void login(User model, Session session) {
         User user = userDao.findByUsername(model.getUsername());
-
+        Ws websocket=new Ws();
+        websocket.onOpen(session);
         if (user == null || !user.getPassword().equals(model.getPassword())) {
-            return new ModelAndView("redirect:/login.jsp");
+        	try {
+				websocket.sendMessage("{\"result\": \"LoginFail\", \"message\" : \"账号不存在或密码错误\"}");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//            ModelAndView mav = new ModelAndView();
+//            mav.setViewName("index");
+            return;
         } else {
-            session.setAttribute("user", user);
-            ModelAndView mav = new ModelAndView();
-            mav.setViewName("index");
-            return mav;
+        	try {
+				websocket.sendMessage("{ \"result\": \"LoginSuccess\"}");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            return;
         }
     }
 }

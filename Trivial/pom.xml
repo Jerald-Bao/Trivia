@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>trivia</groupId>
-  <artifactId>trivia-ssm</artifactId>
+  <artifactId>ssm</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
   <name>ssm Maven Webapp</name>
@@ -19,11 +19,7 @@
                 <version>4.11</version>             
             
             </dependency>
-            <dependency>  
-     <groupId>javax.servlet</groupId>  
-     <artifactId>javax.servlet-api</artifactId>  
-     <version>3.1.0</version>  
- 	</dependency>  
+
         <!-- Spring相关包 -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -55,6 +51,23 @@
             <artifactId>spring-tx</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
+<!--WebSocket 依赖 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-messaging</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-websocket</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.3.1</version>
+    </dependency>
 
        <!-- AOP相关包 -->
         <dependency>
@@ -113,13 +126,6 @@
             <version>1.7.21</version>
         </dependency>
         
-        <!-- 单元测试相关包 -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
         
     <dependency>
   	  <groupId>org.json</groupId>
