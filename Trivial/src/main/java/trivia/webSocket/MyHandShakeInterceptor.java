@@ -1,4 +1,4 @@
-package webSocket;
+package trivia.webSocket;
 
 import trivia.dao.UserDao;
 import trivia.domain.User;
@@ -19,6 +19,7 @@ import java.util.List;
 public class MyHandShakeInterceptor implements HandshakeInterceptor {
 	private UserDao userDao;
 	private static List<User> onlineUser;
+
     public boolean beforeHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse, WebSocketHandler webSocketHandler, Map<String, Object> map) throws Exception {
         
     	System.out.println("Websocket:用户[ID:" + ((ServletServerHttpRequest) serverHttpRequest).getServletRequest().getSession(false).getAttribute("user") + "]已经建立连接");

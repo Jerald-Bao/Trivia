@@ -65,7 +65,7 @@ setTimeout(function () {
 
 //WebSocket
 var websocket;
-var wsUri ="ws://localhost:8080/ssm/websocket"; 
+var wsUri ="ws://localhost:8080/ssm/ws"; 
 var output;  
 function init() { 
     output = document.getElementById("output"); 

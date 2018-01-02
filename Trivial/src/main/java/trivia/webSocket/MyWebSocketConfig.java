@@ -1,7 +1,9 @@
-package webSocket;
+package trivia.webSocket;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
@@ -12,6 +14,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
  * 其实@Controller, @Service, @Repository是@Component的细化
  */
 @Component
+@EnableWebMvc
 @EnableWebSocket
 public class MyWebSocketConfig extends WebMvcConfigurerAdapter implements WebSocketConfigurer {
 
@@ -25,5 +28,15 @@ public class MyWebSocketConfig extends WebMvcConfigurerAdapter implements WebSoc
 
         //添加websocket处理器，添加握手拦截器
         webSocketHandlerRegistry.addHandler(handler, "/ws/sockjs").addInterceptors(new MyHandShakeInterceptor()).withSockJS();
+    }
+    
+    @Bean
+    public MyWebSocketHandler myhandler() {
+    	return new MyWebSocketHandler();
+    }
+ 
+    @Bean
+    public MyHandShakeInterceptor myInterceptors() {
+    	return new MyHandShakeInterceptor();
     }
 }

@@ -1,4 +1,4 @@
-package webSocket;
+package trivia.webSocket;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
