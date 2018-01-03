@@ -10,27 +10,23 @@ import org.springframework.web.socket.server.HandshakeInterceptor;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
-/**
- * websocketæ¡æ‰‹æ‹¦æˆªå™¨
- * æ‹¦æˆªæ¡æ‰‹å‰ï¼Œæ¡æ‰‹åçš„ä¸¤ä¸ªåˆ‡é¢
- */
 public class MyHandShakeInterceptor implements HandshakeInterceptor {
 
     public boolean beforeHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse, WebSocketHandler webSocketHandler, Map<String, Object> map) throws Exception {
         
-    	System.out.println("Websocket:ç”¨æˆ·[ID:" + ((ServletServerHttpRequest) serverHttpRequest).getServletRequest().getSession(false).getAttribute("user") + "]å·²ç»å»ºç«‹è¿æ¥");
+    	System.out.println("WebSocket:ÓÃ»§[ID:" + ((ServletServerHttpRequest) serverHttpRequest).getServletRequest().getSession(false).getAttribute("user") + "]ÒÑ¾­½¨Á¢Á¬½Ó");
         
     	if (serverHttpRequest instanceof ServletServerHttpRequest) {
             ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) serverHttpRequest;
             HttpSession session = servletRequest.getServletRequest().getSession(false);
             
-         // æ ‡è®°ç”¨æˆ·
+         // ±ê¼ÇÓÃ»§
             User user = (User) session.getAttribute("user");
             if(user!=null){
-                map.put("uid", user.getUserid());//ä¸ºæœåŠ¡å™¨åˆ›å»ºWebSocketSessionåšå‡†å¤‡
-                System.out.println("ç”¨æˆ·idï¼š"+user.getUserid()+" è¢«åŠ å…¥");
+                map.put("uid", user.getUserid());//Îª·şÎñÆ÷´´½¨WebSocketSession×ö×¼±¸
+                System.out.println("ÓÃ»§id£º"+user.getUserid()+" ±»¼ÓÈë");
             }else{
-                System.out.println("userä¸ºç©º");
+                System.out.println("userÎª¿Õ");
                 return false;
             }
         }

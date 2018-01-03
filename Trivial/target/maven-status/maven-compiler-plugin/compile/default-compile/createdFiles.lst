@@ -1,0 +1,15 @@
+trivia\dao\UserDao.class
+trivia\domain\User.class
+trivia\web\UserService.class
+trivia\web\UserServiceImpl.class
+trivia\web\GameServiceImpl.class
+trivia\web\GameService.class
+trivia\webSocket\MyHandShakeInterceptor.class
+trivia\web\UserController.class
+trivia\dao\QuestionDao.class
+trivia\domain\Message.class
+trivia\domain\gameRoom.class
+trivia\webSocket\MyWebSocketConfig.class
+trivia\webSocket\MyWebSocketHandler.class
+trivia\domain\Question.class
+trivia\domain\returnMessage.class

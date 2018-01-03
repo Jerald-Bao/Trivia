@@ -14,7 +14,7 @@ import trivia.dao.UserDao;
 import trivia.domain.User;
 
 /**
- * ç”¨æˆ·æ§åˆ¶å™¨
+ * ÓÃ»§¿ØÖÆÆ÷
  */
 @Controller
 @RequestMapping(value = "/user")
@@ -27,18 +27,19 @@ public class UserController {
     
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView login(User model, HttpServletRequest request) {
-
+    	
+    	HttpSession session=request.getSession();
         ModelAndView mav = new ModelAndView();
         User user=userService.userValidate(model);
         if (user!=null) {
             mav.setViewName("lobby");
         	mav.addObject("user",user);
         	
-        	HttpSession session=request.getSession();
         	session.setAttribute("user", user);
         } else {
             mav.setViewName("login");
-            mav.addObject("msg","ç”¨æˆ·åä¸å­˜åœ¨æˆ–å¯†ç é”™è¯¯!");
+//            mav.addObject("msg","ÓÃ»§Ãû²»´æÔÚ»òÃÜÂë´íÎó!");
+            session.setAttribute("msg","ÓÃ»§Ãû²»´æÔÚ»òÃÜÂë´íÎó!");
         }
        return mav;
     }

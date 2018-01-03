@@ -7,22 +7,22 @@
     <!-- 定义数据源Bean -->
     <!-- Druid -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
-        <property name="url" value="jdbc:mysql://localhost:3306/test" />
+        <property name="url" value="jdbc:mysql://111.231.84.180:3306/trivia" />
         <property name="username" value="root" />
-        <property name="password" value="wsm@5794433" />
+        <property name="password" value="root" />
     </bean>
 
     <!-- 注册SqlSessionFactoryBean -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <!-- 自动扫描mappers.xml文件 -->
-        <property name="mapperLocations" value="classpath:cn/temptation/dao/*.xml" />
+        <property name="mapperLocations" value="classpath:trivia/dao/*.xml" />
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
     </bean>
     
     <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="cn.temptation.dao" />
+        <property name="basePackage" value="trivia.dao" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
 </beans>

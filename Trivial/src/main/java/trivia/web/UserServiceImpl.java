@@ -1,16 +1,15 @@
 package trivia.web;
-import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
 import trivia.dao.UserDao;
 import trivia.domain.*;
-import trivia.web.UserService;
 
 @Service
 public class UserServiceImpl implements UserService{
 
-	@Resource
+	@Autowired
     private UserDao userDao;
 	
 	@Override

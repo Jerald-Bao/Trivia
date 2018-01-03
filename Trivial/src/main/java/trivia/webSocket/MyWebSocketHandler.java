@@ -27,14 +27,14 @@ public class MyWebSocketHandler implements WebSocketHandler{
     private static List<gameRoom> roomList;
 	private static List<User> onlineUser;
 
-    //å½“MyWebSocketHandlerç±»è¢«åŠ è½½æ—¶å°±ä¼šåˆ›å»ºè¯¥Mapï¼Œéšç±»è€Œç”Ÿ
+    //µ±MyWebSocketHandlerÀà±»¼ÓÔØÊ±¾Í»á´´½¨¸ÃMap£¬ËæÀà¶øÉú
     public static final Map<Integer, WebSocketSession> userSocketSessionMap;
 
     static {
         userSocketSessionMap = new HashMap<Integer, WebSocketSession>();
     }
 
-    //æ¡æ‰‹å®ç°è¿æ¥å
+    //ÎÕÊÖÊµÏÖÁ¬½Óºó
     public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
         int uid = (Integer) webSocketSession.getAttributes().get("uid");
         if (userSocketSessionMap.get(uid) == null) {
@@ -43,19 +43,19 @@ public class MyWebSocketHandler implements WebSocketHandler{
         }
     }
 
-    //æ¥æ”¶æ¸¸æˆä¿¡æ¯åå¤„ç†é€»è¾‘
+    //½ÓÊÕÓÎÏ·ĞÅÏ¢ºó´¦ÀíÂß¼­
     public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> webSocketMessage) throws Exception {
 
         if(webSocketMessage.getPayloadLength()==0)return;
 
-        //å¾—åˆ°Socketé€šé“ä¸­çš„æ•°æ®å¹¶è½¬åŒ–ä¸ºMessageå¯¹è±¡
+        //µÃµ½SocketÍ¨µÀÖĞµÄÊı¾İ²¢×ª»¯ÎªMessage¶ÔÏó
         Message msg=new Gson().fromJson(webSocketMessage.getPayload().toString(),Message.class);
 
         Timestamp now = new Timestamp(System.currentTimeMillis());
         msg.setMessageDate(now);
-        //å°†ä¿¡æ¯ä¿å­˜è‡³æ•°æ®åº“
+        //½«ĞÅÏ¢±£´æÖÁÊı¾İ¿â
 //        youandmeService.addMessage(msg.getFromId(),msg.getFromName(),msg.getToId(),msg.getMessageText(),msg.getMessageDate());
-        //å°†roomIdå’Œmessageä¼ é€’ç»™åå°è¿ç®—å¾—åˆ°returnMsg
+        //½«roomIdºÍmessage´«µİ¸øºóÌ¨ÔËËãµÃµ½returnMsg
         returnMessage rmsg=new returnMessage();
         for(gameRoom gr:roomList)
         {
@@ -65,7 +65,7 @@ public class MyWebSocketHandler implements WebSocketHandler{
         	}
         }
         
-        //å‘é€Socketä¿¡æ¯ç»™roomä¸­user
+        //·¢ËÍSocketĞÅÏ¢¸øroomÖĞuser
         for(int i:msg.getToId())
         {
         	sendMessageToUser(i, new TextMessage(new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create().toJson(rmsg)));
@@ -78,11 +78,11 @@ public class MyWebSocketHandler implements WebSocketHandler{
     }
 
     /**
-     * åœ¨æ­¤åˆ·æ–°é¡µé¢å°±ç›¸å½“äºæ–­å¼€WebSocketè¿æ¥,åŸæœ¬åœ¨é™æ€å˜é‡userSocketSessionMapä¸­çš„
-     * WebSocketSessionä¼šå˜æˆå…³é—­çŠ¶æ€(close)ï¼Œä½†æ˜¯åˆ·æ–°åçš„ç¬¬äºŒæ¬¡è¿æ¥æœåŠ¡å™¨åˆ›å»ºçš„
-     * æ–°WebSocketSession(opençŠ¶æ€)åˆä¸ä¼šåŠ å…¥åˆ°userSocketSessionMapä¸­,æ‰€ä»¥è¿™æ ·å°±æ— æ³•å‘é€æ¶ˆæ¯
-     * å› æ­¤åº”å½“åœ¨å…³é—­è¿æ¥è¿™ä¸ªåˆ‡é¢å¢åŠ å»é™¤userSocketSessionMapä¸­å½“å‰å¤„äºcloseçŠ¶æ€çš„WebSocketSessionï¼Œ
-     * è®©æ–°åˆ›å»ºçš„WebSocketSession(opençŠ¶æ€)å¯ä»¥åŠ å…¥åˆ°userSocketSessionMapä¸­
+     * ÔÚ´ËË¢ĞÂÒ³Ãæ¾ÍÏàµ±ÓÚ¶Ï¿ªWebSocketÁ¬½Ó,Ô­±¾ÔÚ¾²Ì¬±äÁ¿userSocketSessionMapÖĞµÄ
+     * WebSocketSession»á±ä³É¹Ø±Õ×´Ì¬(close)£¬µ«ÊÇË¢ĞÂºóµÄµÚ¶ş´ÎÁ¬½Ó·şÎñÆ÷´´½¨µÄ
+     * ĞÂWebSocketSession(open×´Ì¬)ÓÖ²»»á¼ÓÈëµ½userSocketSessionMapÖĞ,ËùÒÔÕâÑù¾ÍÎŞ·¨·¢ËÍÏûÏ¢
+     * Òò´ËÓ¦µ±ÔÚ¹Ø±ÕÁ¬½ÓÕâ¸öÇĞÃæÔö¼ÓÈ¥³ıuserSocketSessionMapÖĞµ±Ç°´¦ÓÚclose×´Ì¬µÄWebSocketSession£¬
+     * ÈÃĞÂ´´½¨µÄWebSocketSession(open×´Ì¬)¿ÉÒÔ¼ÓÈëµ½userSocketSessionMapÖĞ
      * @param webSocketSession
      * @param closeStatus
      * @throws Exception
@@ -106,7 +106,7 @@ public class MyWebSocketHandler implements WebSocketHandler{
         return false;
     }
 
-    //å‘é€ä¿¡æ¯çš„å®ç°
+    //·¢ËÍĞÅÏ¢µÄÊµÏÖ
     public void sendMessageToUser(int uid, TextMessage message)
             throws IOException {
         WebSocketSession session = userSocketSessionMap.get(uid);
