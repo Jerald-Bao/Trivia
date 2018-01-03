@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form action="user/login.action" method="post">
+<form action="user/login" method="post">
 <label>账号：</label>
 <input type="text" id="txtUsername" name="username" placeholder="请输入账号" /><br/>
 <label>密码：</label>
@@ -16,6 +16,6 @@
 <input type="submit" value="提交" />
 <input type="reset" value="重置" />
 </form>
-
+<h3>${msg }</h3>
 </body>
 </html>

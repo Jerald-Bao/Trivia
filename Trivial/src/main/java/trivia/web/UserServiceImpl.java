@@ -13,9 +13,9 @@ public class UserServiceImpl implements UserService{
     private UserDao userDao;
 	
 	@Override
-	public User userValidate(User model) {
-		User user = userDao.findByUsername(model.getUsername());
-		 if (user == null||!user.getPassword().equals(model.getPassword())) {
+	public User userValidate(String username,String password) {
+		User user = userDao.findByUsername(username);
+		 if (user == null||!user.getPassword().equals(password)) {
 			 return null;
 		 }
 		 else 

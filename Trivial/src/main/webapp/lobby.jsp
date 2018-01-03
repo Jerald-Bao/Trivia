@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<h3>欢迎,${user.userid}:${user.username}</h3>
+<h3>欢迎,${user.userid}:${user.username}${user.account}</h3>
 
 </body>
 </html>

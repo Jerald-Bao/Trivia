@@ -3,5 +3,5 @@ import trivia.domain.*;
 
 public interface UserService {
 
-	User userValidate(User model);
+	User userValidate(String username,String password);
 }

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,20 +30,30 @@ public class UserController {
     private UserService userService;
     
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(User model, HttpServletRequest request) {
+    public ModelAndView login(@Param("username") String username,@Param("password") String password, HttpServletRequest request) {
     	
     	HttpSession session=request.getSession();
     	Map<String,Object> data = new HashMap<String,Object>();
     	
-        User user=userService.userValidate(model);   
-        if (user!=null) {
-           	session.setAttribute("user", user);
-        	data.put("user",user);
-        	return new ModelAndView("lobby",data);
-        } else {
-            data.put("msg","用户名不存在或密码错误!");
-        	return new ModelAndView("login",data);
-        }
+    	if(username==null){
+    		data.put("msg","用户名不能为空!");
+        	return new ModelAndView("redirect:/login.jsp",data);
+    	}
+    	else if(password==null){
+    		data.put("msg","密码不能为空!");
+        	return new ModelAndView("redirect:/login.jsp",data);
+    	}
+    	else {
+    		User user=userService.userValidate(username,password);   
+            if (user==null) {
+                data.put("msg","用户名不存在或密码错误!");
+            	return new ModelAndView("redirect:/login.jsp",data);
+            } else {
+              	session.setAttribute("user", user);
+            	data.put("user",user);
+            	return new ModelAndView("lobby",data);
+            }
+    	}
     }
 
 }

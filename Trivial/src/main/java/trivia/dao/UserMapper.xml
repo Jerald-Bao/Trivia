@@ -7,6 +7,6 @@
     </select>
     
     <select id="findByUserid" parameterType="int" resultType="User">
-        SELECT * FROM user WHERE id=#{id}
+        SELECT * FROM user WHERE userid=#{userid}
     </select>
 </mapper>
