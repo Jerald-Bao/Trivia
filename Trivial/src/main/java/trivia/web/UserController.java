@@ -1,5 +1,8 @@
 package trivia.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,19 +32,17 @@ public class UserController {
     public ModelAndView login(User model, HttpServletRequest request) {
     	
     	HttpSession session=request.getSession();
-        ModelAndView mav = new ModelAndView();
-        User user=userService.userValidate(model);
+    	Map<String,Object> data = new HashMap<String,Object>();
+    	
+        User user=userService.userValidate(model);   
         if (user!=null) {
-            mav.setViewName("lobby");
-        	mav.addObject("user",user);
-        	
-        	session.setAttribute("user", user);
+           	session.setAttribute("user", user);
+        	data.put("user",user);
+        	return new ModelAndView("lobby",data);
         } else {
-            mav.setViewName("login");
-//            mav.addObject("msg","用户名不存在或密码错误!");
-            session.setAttribute("msg","用户名不存在或密码错误!");
+            data.put("msg","用户名不存在或密码错误!");
+        	return new ModelAndView("login",data);
         }
-       return mav;
     }
 
 }
