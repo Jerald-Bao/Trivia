@@ -14,14 +14,18 @@ import java.util.Map;
 import java.util.List;
 
 import trivia.domain.*;
-import trivia.web.gameService;
+import trivia.web.GameService;
+import trivia.dao.UserDao;
 
 @Component
 public class MyWebSocketHandler implements WebSocketHandler{
 
     @Autowired
-    private gameService gameService;
+    private GameService gameService;
+    @Autowired
+    private UserDao userDao;
     private static List<gameRoom> roomList;
+	private static List<User> onlineUser;
 
     //当MyWebSocketHandler类被加载时就会创建该Map，随类而生
     public static final Map<Integer, WebSocketSession> userSocketSessionMap;
@@ -35,6 +39,7 @@ public class MyWebSocketHandler implements WebSocketHandler{
         int uid = (Integer) webSocketSession.getAttributes().get("uid");
         if (userSocketSessionMap.get(uid) == null) {
             userSocketSessionMap.put(uid, webSocketSession);
+            onlineUser.add(userDao.findByUserid(uid));
         }
     }
 
@@ -88,8 +93,10 @@ public class MyWebSocketHandler implements WebSocketHandler{
         Iterator<Map.Entry<Integer,WebSocketSession>> iterator = userSocketSessionMap.entrySet().iterator();
         while(iterator.hasNext()){
             Map.Entry<Integer,WebSocketSession> entry = iterator.next();
+            int uid = (Integer) webSocketSession.getAttributes().get("uid");
             if(entry.getValue().getAttributes().get("uid")==webSocketSession.getAttributes().get("uid")){
                 userSocketSessionMap.remove(webSocketSession.getAttributes().get("uid"));
+                onlineUser.remove(userDao.findByUserid(uid));
                 System.out.println("WebSocket in staticMap:" + webSocketSession.getAttributes().get("uid") + "removed");
             }
         }

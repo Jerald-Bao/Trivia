@@ -9,6 +9,7 @@
 
     <!-- 启动自动扫描 -->
     <context:component-scan base-package="trivia.*" />
+    <context:component-scan base-package="trivia.web"/>  
 
     <!-- 注册MVC注解驱动 -->
     <mvc:annotation-driven />

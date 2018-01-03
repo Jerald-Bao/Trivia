@@ -5,4 +5,8 @@
     <select id="findByUsername" parameterType="string" resultMap="User">
         SELECT * FROM user WHERE username=#{username}
     </select>
+    
+    <select id="findByUserid" parameterType="int" resultMap="User">
+        SELECT * FROM user WHERE id=#{id}
+    </select>
 </mapper>

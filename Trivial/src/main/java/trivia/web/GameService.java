@@ -1,6 +1,6 @@
 package trivia.web;
 import trivia.domain.*;
 
-public interface gameService {
+public interface GameService {
 	returnMessage handleMessage(Message msg,gameRoom gr);
 }
