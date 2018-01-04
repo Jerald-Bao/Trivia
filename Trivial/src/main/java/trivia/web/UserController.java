@@ -18,7 +18,7 @@ import trivia.dao.UserDao;
 import trivia.domain.User;
 
 /**
- * ÓÃ»§¿ØÖÆÆ÷
+ * é¢ã„¦åŸ›éºÑƒåŸ—é£ï¿½
  */
 @Controller
 @RequestMapping(value = "/user")
@@ -36,17 +36,17 @@ public class UserController {
     	Map<String,Object> data = new HashMap<String,Object>();
     	
     	if(username==null){
-    		data.put("msg","ÓÃ»§Ãû²»ÄÜÎª¿Õ!");
+    		data.put("msg","ç”¨æˆ·åä¸èƒ½ä¸ºç©º!");
         	return new ModelAndView("redirect:/login.jsp",data);
     	}
     	else if(password==null){
-    		data.put("msg","ÃÜÂë²»ÄÜÎª¿Õ!");
+    		data.put("msg","å¯†ç ä¸èƒ½ä¸ºç©º!");
         	return new ModelAndView("redirect:/login.jsp",data);
     	}
     	else {
     		User user=userService.userValidate(username,password);   
             if (user==null) {
-                data.put("msg","ÓÃ»§Ãû²»´æÔÚ»òÃÜÂë´íÎó!");
+                data.put("msg","ç”¨æˆ·ä¸å­˜åœ¨æˆ–å¯†ç é”™è¯¯!");
             	return new ModelAndView("redirect:/login.jsp",data);
             } else {
               	session.setAttribute("user", user);
