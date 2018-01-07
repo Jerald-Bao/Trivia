@@ -1,5 +1,6 @@
 package trivia.web;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ import trivia.dao.UserDao;
 import trivia.domain.User;
 
 /**
- * 鐢ㄦ埛鎺у埗鍣�
+ * 用户控制器
  */
 @Controller
 @RequestMapping(value = "/user")
@@ -33,6 +34,12 @@ public class UserController {
     public ModelAndView login(@Param("username") String username,@Param("password") String password, HttpServletRequest request) {
     	
     	HttpSession session=request.getSession();
+    	//System.out.println(request.getCharacterEncoding());//null
+    	try {
+			request.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
     	Map<String,Object> data = new HashMap<String,Object>();
     	
     	if(username==null){

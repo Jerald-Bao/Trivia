@@ -16,6 +16,6 @@
 <input type="submit" value="提交" />
 <input type="reset" value="重置" />
 </form>
-<h3>${msg }</h3>
+<h3>${param.msg}</h3>
 </body>
 </html>
