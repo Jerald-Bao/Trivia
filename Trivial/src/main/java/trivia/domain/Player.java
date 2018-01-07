@@ -5,7 +5,6 @@ public class Player {
 	private int position;
 	private String playerName;
 	
-	
 	public Player(int gamerId, int position, String playerName) {
 		super();
 		this.playerId = gamerId;

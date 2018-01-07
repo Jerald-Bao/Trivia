@@ -5,6 +5,7 @@ import java.util.List;
 
 public class exMessage extends returnMessage{
 	private static String type="ExitRoom";
+	private int exitUserId;
 	private Player host;
 	private List<GameRoom> RoomList;
 	
@@ -13,6 +14,12 @@ public class exMessage extends returnMessage{
 	}
 	public static void setType(String type) {
 		exMessage.type = type;
+	}
+	public int getExitUserId() {
+		return exitUserId;
+	}
+	public void setExitUserId(int exitUserId) {
+		this.exitUserId = exitUserId;
 	}
 	public Player getHost() {
 		return host;

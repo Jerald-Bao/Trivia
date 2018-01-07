@@ -1,6 +1,6 @@
 package trivia.web;
 import trivia.domain.*;
 
-public interface RoomService {
+public interface MessageService {
 	returnMessage handleMessage(Message msg,int uid);
 }

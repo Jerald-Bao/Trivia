@@ -9,4 +9,18 @@
     <select id="findByUserid" parameterType="int" resultType="User">
         SELECT * FROM user WHERE userid=#{userid}
     </select>
+    
+    <update id="winnerUpdateById">
+        UPDATE user
+        SET totalWin = totalWin + 1,totalGame = totalGame +1
+        WHERE
+            userid = #{winnerid}
+    </update>
+
+    <update id="loserUpdateById">
+        UPDATE user
+        SET totalGame = totalGame +1
+        WHERE
+            userid = #{loserid}
+    </update>
 </mapper>

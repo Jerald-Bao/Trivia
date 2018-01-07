@@ -12,6 +12,8 @@ public class Message {
     private String request;//roll,chooseAnswer,getHelp..
     private int from;//房间列表起始位置
     private int to;
+    private String category;
+    private int playerAnswer;
     private Timestamp messageDate;
     
     public Message() {
@@ -68,6 +70,22 @@ public class Message {
 
 	public void setTo(int to) {
 		this.to = to;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+	public int getPlayerAnswer() {
+		return playerAnswer;
+	}
+
+	public void setPlayerAnswer(int playerAnswer) {
+		this.playerAnswer = playerAnswer;
 	}
 
 	public Timestamp getMessageDate() {
