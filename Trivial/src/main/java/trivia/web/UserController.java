@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import trivia.dao.UserDao;
 import trivia.domain.User;
-
 /**
  * 用户控制器
  */

@@ -1,12 +1,15 @@
 package trivia.domain;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Message {
 	private int roomId;
     private int fromId;
     private String fromName;
-    private int[] toId= {0,0,0,0};
-    private String operation;//roll,chooseAnswer,getHelp..
+    private ArrayList<Integer> toId;
+    private String request;//roll,chooseAnswer,getHelp..
     private Timestamp messageDate;
     
     public Message() {
@@ -35,24 +38,21 @@ public class Message {
     public void setFromName(String fromName) {
         this.fromName = fromName;
     }
-
-    public int[] getToId() {
+    public ArrayList<Integer> getToId() {
         return toId;
     }
+	public void setToId(ArrayList<Integer> toId) {
+		this.toId = toId;
+	}
+    public String getRequest() {
+		return request;
+	}
 
-    public void setToId(int[] toId) {
-        this.toId = toId;
-    }
+	public void setRequest(String request) {
+		this.request = request;
+	}
 
-    public String getOperation() {
-        return operation;
-    }
-
-    public void setOperation(String operation) {
-        this.operation = operation;
-    }
-
-    public Timestamp getMessageDate() {
+	public Timestamp getMessageDate() {
         return messageDate;
     }
 
@@ -67,7 +67,7 @@ public class Message {
                 ", fromId=" + fromId +
                 ", fromName='" + fromName + '\'' +
                 ", toId=" + toId +
-                ", operation='" + operation + '\'' +
+                ", request='" + request + '\'' +
                 ", messageDate=" + messageDate +
                 '}';
     }

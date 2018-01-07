@@ -24,10 +24,20 @@ public class MyWebSocketHandler implements WebSocketHandler{
     private GameService gameService;
     @Autowired
     private UserDao userDao;
-    private static List<gameRoom> roomList;
+    
+    private static List<GameRoom> roomList;
 	private static List<User> onlineUser;
 
-    //当MyWebSocketHandler类被加载时就会创建该Map，随类而生
+	
+    public static List<GameRoom> getRoomList() {
+		return roomList;
+	}
+
+	public static List<User> getOnlineUser() {
+		return onlineUser;
+	}
+
+	//当MyWebSocketHandler类被加载时就会创建该Map，随类而生
     public static final Map<Integer, WebSocketSession> userSocketSessionMap;
 
     static {
@@ -53,17 +63,10 @@ public class MyWebSocketHandler implements WebSocketHandler{
 
         Timestamp now = new Timestamp(System.currentTimeMillis());
         msg.setMessageDate(now);
-        //将信息保存至数据库
-//        youandmeService.addMessage(msg.getFromId(),msg.getFromName(),msg.getToId(),msg.getMessageText(),msg.getMessageDate());
+
         //将roomId和message传递给后台运算得到returnMsg
         returnMessage rmsg=new returnMessage();
-        for(gameRoom gr:roomList)
-        {
-        	if(gr.getRoomId()==msg.getRoomId())
-        	{
-        		 rmsg=gameService.handleMessage(msg,gr);
-        	}
-        }
+        rmsg=gameService.handleMessage(msg);
         
         //发送Socket信息给room中user
         for(int i:msg.getToId())
