@@ -10,6 +10,8 @@ public class Message {
     private String fromName;
     private ArrayList<Integer> toId;
     private String request;//roll,chooseAnswer,getHelp..
+    private int from;//房间列表起始位置
+    private int to;
     private Timestamp messageDate;
     
     public Message() {
@@ -50,6 +52,22 @@ public class Message {
 
 	public void setRequest(String request) {
 		this.request = request;
+	}
+
+	public int getFrom() {
+		return from;
+	}
+
+	public void setFrom(int from) {
+		this.from = from;
+	}
+
+	public int getTo() {
+		return to;
+	}
+
+	public void setTo(int to) {
+		this.to = to;
 	}
 
 	public Timestamp getMessageDate() {

@@ -11,7 +11,7 @@ import trivia.domain.*;
 import trivia.webSocket.MyWebSocketHandler;
 
 @Service
-public class GameServiceImpl implements GameService{
+public class RoomServiceImpl implements RoomService{
 	
 	@Autowired
     private QuestionDao quesDao;
@@ -20,13 +20,17 @@ public class GameServiceImpl implements GameService{
     private UserDao userDao;
 	
 	@Override
-	public returnMessage handleMessage(Message msg)
+	public returnMessage handleMessage(Message msg,int uid)
 	{
-		int fromId=msg.getFromId();
+		int fromId=uid;
 		
 		if(msg.getRequest()=="RoomList"){
 			rlMessage rlmsg=new rlMessage();
-			rlmsg.setRoomList(MyWebSocketHandler.getRoomList());
+			List<GameRoom> grs=new ArrayList<GameRoom>();
+			for(int i=msg.getFrom()-1;i<msg.getTo();i++) {
+				grs.add(MyWebSocketHandler.getRoomList().get(i));
+			}
+			rlmsg.setRoomList(grs);
 			rlmsg.getToId().add(fromId);
 			return rlmsg;
 		}
@@ -115,7 +119,12 @@ public class GameServiceImpl implements GameService{
 					break;
 				}
 			}
-			exmsg.setRoomList(MyWebSocketHandler.getRoomList());
+			
+			List<GameRoom> grs=new ArrayList<GameRoom>();
+			for(int i=0;i<10;i++) {
+				grs.add(MyWebSocketHandler.getRoomList().get(i));
+			}
+			exmsg.setRoomList(grs);
 			exmsg.getToId().add(fromId);
 			
 			return exmsg;

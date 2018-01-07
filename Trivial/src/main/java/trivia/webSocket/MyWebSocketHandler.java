@@ -14,14 +14,14 @@ import java.util.Map;
 import java.util.List;
 
 import trivia.domain.*;
-import trivia.web.GameService;
+import trivia.web.RoomService;
 import trivia.dao.UserDao;
 
 @Component
 public class MyWebSocketHandler implements WebSocketHandler{
 
     @Autowired
-    private GameService gameService;
+    private RoomService roomService;
     @Autowired
     private UserDao userDao;
     
@@ -55,7 +55,7 @@ public class MyWebSocketHandler implements WebSocketHandler{
 
     //接收游戏信息后处理逻辑
     public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> webSocketMessage) throws Exception {
-
+    	int uid = (Integer) webSocketSession.getAttributes().get("uid");
         if(webSocketMessage.getPayloadLength()==0)return;
 
         //得到Socket通道中的数据并转化为Message对象
@@ -66,7 +66,7 @@ public class MyWebSocketHandler implements WebSocketHandler{
 
         //将roomId和message传递给后台运算得到returnMsg
         returnMessage rmsg=new returnMessage();
-        rmsg=gameService.handleMessage(msg);
+        rmsg=roomService.handleMessage(msg,uid);
         
         //发送Socket信息给room中user
         for(int i:msg.getToId())
