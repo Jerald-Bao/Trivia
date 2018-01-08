@@ -2,7 +2,8 @@ package trivia.domain;
 
 public class roMessage extends returnMessage{
 	private static String type="Roll";
-	private int rollUserId;
+	private int preRollPos;
+	private int curRollPos;
 	private int rollNum;
 	private Question question;
 	private int location;
@@ -14,11 +15,17 @@ public class roMessage extends returnMessage{
 	public static void setType(String type) {
 		roMessage.type = type;
 	}
-	public int getRollUserId() {
-		return rollUserId;
+	public int getPreRollPos() {
+		return preRollPos;
 	}
-	public void setRollUserId(int rollUserId) {
-		this.rollUserId = rollUserId;
+	public void setPreRollPos(int preRollPos) {
+		this.preRollPos = preRollPos;
+	}
+	public int getCurRollPos() {
+		return curRollPos;
+	}
+	public void setCurRollPos(int curRollPos) {
+		this.curRollPos = curRollPos;
 	}
 	public int getRollNum() {
 		return rollNum;

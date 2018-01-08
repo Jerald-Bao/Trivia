@@ -24,6 +24,9 @@ public class MessageServiceImpl implements MessageService{
 	{
 		returnMessage rmsg = new returnMessage();
 		switch(msg.getRequest()) {
+		case "User":
+			rmsg=sendUser(msg,uid);
+			break;
 		case "RoomList":
 			rmsg=roomList(msg,uid);
 			break;
@@ -35,9 +38,6 @@ public class MessageServiceImpl implements MessageService{
 			break;
 		case "ExitRoom":
 			rmsg=exitRoom(msg,uid);
-			break;
-		case "GameStart":
-			rmsg=startGame(msg,uid);
 			break;
 		case "Roll":
 			rmsg=roll(msg,uid);
@@ -52,6 +52,14 @@ public class MessageServiceImpl implements MessageService{
 		return rmsg;
 	}
 
+	public userMessage sendUser(Message msg,int fromId) {
+		userMessage umsg=new userMessage();
+		User user=userDao.findByUserid(fromId);
+		umsg.setUser(user);
+		umsg.getToId().add(fromId);
+		return umsg;
+	}
+	
 	public rlMessage roomList(Message msg,int fromId) {
 		rlMessage rlmsg=new rlMessage();
 		List<GameRoom> grs=new ArrayList<GameRoom>();
@@ -96,7 +104,15 @@ public class MessageServiceImpl implements MessageService{
         				 ermsg.getToId().add(p.getPlayerId());
         			 }
         			 ermsg.setResult(true);
-        		 }        	
+        		 }
+        		 if(gr.getGamerNum()==4) {
+        			gr.setGame(new Game(gr.getPlayers()));
+ 					gr.getGame().setPopQuestions(quesDao.findByCategory("Pop"));
+ 					gr.getGame().setScienceQuestions(quesDao.findByCategory("Science"));
+ 					gr.getGame().setSportQuestions(quesDao.findByCategory("Sport"));
+ 					gr.getGame().setRockQuestions(quesDao.findByCategory("Rock"));
+ 					ermsg.setGamestart(true);
+        		 }
         		 return ermsg;
         	}
         }
@@ -107,7 +123,7 @@ public class MessageServiceImpl implements MessageService{
 		crMessage crmsg=new crMessage();
 		GameRoom gr=new GameRoom();
 		gr.setRoomId(MyWebSocketHandler.getRoomList().size()+1);
-		Player host=new Player(fromId,1,userDao.findByUserid(fromId).getUsername());
+		Player host=new Player(fromId,0,userDao.findByUserid(fromId).getUsername());
 		gr.setHost(host);
 		gr.setGamerNum(gr.getGamerNum()+1);
 		
@@ -151,7 +167,6 @@ public class MessageServiceImpl implements MessageService{
 				break;
 			}
 		}
-		
 		List<GameRoom> grs=new ArrayList<GameRoom>();
 		for(int i=0;i<10;i++) {
 			grs.add(MyWebSocketHandler.getRoomList().get(i));
@@ -161,38 +176,40 @@ public class MessageServiceImpl implements MessageService{
 		return exmsg;
 	}
 
-	public returnMessage startGame(Message msg,int fromId) {
-		returnMessage rmsg=new returnMessage();
-		rmsg.setResult(false);
-		
-		for(GameRoom gr:MyWebSocketHandler.getRoomList()) {
-			if(gr.getRoomId()==msg.getRoomId()) {
-				//人满开始游戏
-				if(gr.getGamerNum()==4) {
-					rmsg.setResult(true);
-					gr.setGame(new Game(gr.getPlayers()));
-					gr.getGame().setPopQuestions(quesDao.findByCategory("Pop"));
-					gr.getGame().setScienceQuestions(quesDao.findByCategory("Science"));
-					gr.getGame().setSportQuestions(quesDao.findByCategory("Sport"));
-					gr.getGame().setRockQuestions(quesDao.findByCategory("Rock"));
-					for(Player p:gr.getPlayers()) {
-						rmsg.getToId().add(p.getPlayerId());
-					}
-				}
-				else {
-					rmsg.setResult(false);
-					rmsg.getToId().add(fromId);
-				}
-				break;
-			}
-		}		
-		return rmsg;
-	}
+//	public returnMessage startGame(Message msg,int fromId) {
+//		returnMessage rmsg=new returnMessage();
+//		rmsg.setResult(false);
+//		
+//		for(GameRoom gr:MyWebSocketHandler.getRoomList()) {
+//			if(gr.getRoomId()==msg.getRoomId()) {
+//				//人满开始游戏
+//				if(gr.getGamerNum()==4) {
+//					rmsg.setResult(true);
+//					gr.setGame(new Game(gr.getPlayers()));
+//					gr.getGame().setPopQuestions(quesDao.findByCategory("Pop"));
+//					gr.getGame().setScienceQuestions(quesDao.findByCategory("Science"));
+//					gr.getGame().setSportQuestions(quesDao.findByCategory("Sport"));
+//					gr.getGame().setRockQuestions(quesDao.findByCategory("Rock"));
+//					for(Player p:gr.getPlayers()) {
+//						rmsg.getToId().add(p.getPlayerId());
+//					}
+//				}
+//				else {
+//					rmsg.setResult(false);
+//					rmsg.getToId().add(fromId);
+//				}
+//				break;
+//			}
+//		}		
+//		return rmsg;
+//	}
 
 	public roMessage roll(Message msg,int fromId) {
 		roMessage romsg=new roMessage();
 		int rollNum=0;
-		int location=0;
+		int categoryLocation=0;
+		int curRollPos=0;
+		int preRollPos=0;
 		String category;
 		Question question=new Question();
 		
@@ -202,21 +219,37 @@ public class MessageServiceImpl implements MessageService{
 				rollNum=game.roll();
 				for(Player p:game.getPlayers()) {
 					if(p.getPlayerId()==fromId) {
-						location=game.move(p,rollNum);
+						int index=p.getPosition();
+						//如果用户处于被困状态
+						if(game.getLock()[index]==1){
+							//不等于4时脱困
+							if(rollNum!=4) {
+								game.getLock()[index]=0;
+							}
+						}
+						else {
+							categoryLocation=game.move(p,rollNum);
+							category=game.getCurrentCategory(categoryLocation);
+							question=game.getQuestion(category);
+							game.setCurrengQuestion(question);
+						}
+						curRollPos=p.getPosition();
+						if(curRollPos==3){
+							preRollPos=0;
+						}
+						else
+							preRollPos=curRollPos+1;
 					}
 					romsg.getToId().add(p.getPlayerId());
 				}
-				category=game.getCurrentCategory(location);
-				question=game.getQuestion(category);
-				game.setCurrengQuestion(question);
 				gr.setGame(game);				
 				break;
 			}
 		}
 		
-		romsg.setRollUserId(fromId);
+		romsg.setCurRollPos(curRollPos);
+		romsg.setPreRollPos(preRollPos);
 		romsg.setRollNum(rollNum);
-		romsg.setLocation(location);
 		romsg.setQuestion(question);
 		return romsg;	
 	}
@@ -227,41 +260,53 @@ public class MessageServiceImpl implements MessageService{
 		pamsg.setResult(false);
 		int winPoint=1;
 		int point=0;
+		int correctAns=0;
+		int curPos=0;
 		
 		for(GameRoom gr:MyWebSocketHandler.getRoomList()) {
 			if(gr.getRoomId()==msg.getRoomId()) {
 				Game game=gr.getGame();
-				//回答正确
-				if(msg.getPlayerAnswer()==game.getCurrengQuestion().getAnswer()) {
-					for(Player p:game.getPlayers()) {
-						if(p.getPlayerId()==fromId) {
+				correctAns=game.getCurrengQuestion().getAnswer();
+				
+				for(Player p:game.getPlayers()) {
+					if(p.getPlayerId()==fromId) {
+						curPos=p.getPosition();
+						//回答正确
+						if(msg.getPlayerAnswer()==correctAns) {
 							point=game.addPoint(p,winPoint);
+							pamsg.setResult(true);
+							//如果玩家获胜
+							if(point==6) {
+								pamsg.setGameOver(true);
+								int[] playersId= {0,0,0,0};
+								for(Player p:game.getPlayers()) {							
+									int index=p.getPosition();
+									playersId[index]=p.getPlayerId();
+									
+									if(p.getPlayerId()==fromId) 
+										userDao.winnerUpdateById(p.getPlayerId());
+									else
+										userDao.loserUpdateById(p.getPlayerId());
+								}
+//								historyDao.addRecord(playersId,fromId,game.getPoint());
+								MyWebSocketHandler.getRoomList().remove(gr);
+							}
+						}
+						//回答错误
+						else {
+							int index=p.getPosition();
+							game.getLock()[index]=1;
 						}
 						pamsg.getToId().add(p.getPlayerId());
-					}	
-					pamsg.setResult(true);
-					//如果玩家获胜
-					if(point==6) {
-						pamsg.setGameOver(true);
-						int[] playersId= {0,0,0,0};
-						for(Player p:game.getPlayers()) {							
-							int index=p.getPosition()-1;
-							playersId[index]=p.getPlayerId();
-							
-							if(p.getPlayerId()==fromId) 
-								userDao.winnerUpdateById(p.getPlayerId());
-							else
-								userDao.loserUpdateById(p.getPlayerId());
-						}
-//						historyDao.addRecord(playersId,fromId,game.getPoint());
-						gr.setGame(null);
 					}
 				}
 				break;
 			}
 		}
 		
-		pamsg.setAnsUserId(fromId);
+		pamsg.setAnsUserPos(curPos);
+		pamsg.setCorrectAnswer(correctAns);
+		pamsg.setPlayersAnswer(msg.getPlayerAnswer());
 		pamsg.setPoint(point);
 		return pamsg;
 	}

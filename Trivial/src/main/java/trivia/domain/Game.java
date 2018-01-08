@@ -12,6 +12,7 @@ public class Game {
 	private Question currengQuestion;
 	private int[] location= {0,0,0,0};
 	private int[] point= {0,0,0,0};
+	private int[] lock= {0,0,0,0};
 
 	public static final int MAX_NUMBER_OF_PLACE = 12;
 	public static final int CATEGORY_POP_1 = 0;
@@ -39,17 +40,15 @@ public class Game {
 	}
 	
 	public int move(Player p,int rollNum) {
-		int index=p.getPosition()-1;
+		int index=p.getPosition();
 		int location=this.getLocation()[index];
 		location+=rollNum;
-		if(location> MAX_NUMBER_OF_PLACE - 1)
-			location-=MAX_NUMBER_OF_PLACE;
 		this.getLocation()[index]=location;
-		return location;
+		return location % MAX_NUMBER_OF_PLACE;
 	}
 	
 	public int addPoint(Player p,int winPoint) {
-		int index=p.getPosition()-1;
+		int index=p.getPosition();
 	    this.getPoint()[index]+=winPoint;
 	    return this.getPoint()[index];
 	}
@@ -165,4 +164,13 @@ public class Game {
 	public void setPoint(int[] point) {
 		this.point = point;
 	}
+
+	public int[] getLock() {
+		return lock;
+	}
+
+	public void setLock(int[] lock) {
+		this.lock = lock;
+	}
+	
 }

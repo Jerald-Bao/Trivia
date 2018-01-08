@@ -7,6 +7,7 @@ public class erMessage extends returnMessage{
 	private static String type="EnterRoom";
 	private Player user;
     private List<Player> players;
+    private boolean gamestart;
 
     
 	public static String getType() {
@@ -26,5 +27,11 @@ public class erMessage extends returnMessage{
 	}
 	public void setPlayers(List<Player> players) {
 		this.players = players;
+	}
+	public boolean isGamestart() {
+		return gamestart;
+	}
+	public void setGamestart(boolean gamestart) {
+		this.gamestart = gamestart;
 	}
 }

@@ -2,7 +2,9 @@ package trivia.domain;
 
 public class paMessage extends returnMessage{
 	private static String type="PlayerAnswer";
-	private int ansUserId;
+	private int ansUserPos;
+	private int playersAnswer;
+	private int correctAnswer;
 	private int point;
 	private boolean gameOver;
 	
@@ -14,12 +16,28 @@ public class paMessage extends returnMessage{
 		paMessage.type = type;
 	}
 
-	public int getAnsUserId() {
-		return ansUserId;
+	public int getAnsUserPos() {
+		return ansUserPos;
 	}
 
-	public void setAnsUserId(int ansUserId) {
-		this.ansUserId = ansUserId;
+	public void setAnsUserPos(int ansUserPos) {
+		this.ansUserPos = ansUserPos;
+	}
+
+	public int getPlayersAnswer() {
+		return playersAnswer;
+	}
+
+	public void setPlayersAnswer(int playersAnswer) {
+		this.playersAnswer = playersAnswer;
+	}
+
+	public int getCorrectAnswer() {
+		return correctAnswer;
+	}
+
+	public void setCorrectAnswer(int correctAnswer) {
+		this.correctAnswer = correctAnswer;
 	}
 
 	public int getPoint() {
