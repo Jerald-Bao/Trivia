@@ -10,8 +10,8 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 /**
- * Component×¢½â¸æËßSpringMVC¸ÃÀàÊÇÒ»¸öSpringIOCÈİÆ÷ÏÂ¹ÜÀíµÄÀà
- * ÆäÊµ@Controller, @Service, @RepositoryÊÇ@ComponentµÄÏ¸»¯
+ * Componentæ³¨è§£å‘Šè¯‰SpringMVCè¯¥ç±»æ˜¯ä¸€ä¸ªSpringIOCå®¹å™¨ä¸‹ç®¡ç†çš„ç±»
+ * å…¶å®@Controller, @Service, @Repositoryæ˜¯@Componentçš„ç»†åŒ–
  */
 @Component
 @EnableWebMvc
@@ -23,10 +23,10 @@ public class MyWebSocketConfig extends WebMvcConfigurerAdapter implements WebSoc
 
     public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
 
-        //Ìí¼Ówebsocket´¦ÀíÆ÷£¬Ìí¼ÓÎÕÊÖÀ¹½ØÆ÷
+        //æ·»åŠ websocketå¤„ç†å™¨ï¼Œæ·»åŠ æ¡æ‰‹æ‹¦æˆªå™¨
         webSocketHandlerRegistry.addHandler(handler, "/ws").addInterceptors(new MyHandShakeInterceptor());
 
-        //Ìí¼Ówebsocket´¦ÀíÆ÷£¬Ìí¼ÓÎÕÊÖÀ¹½ØÆ÷
+        //æ·»åŠ websocketå¤„ç†å™¨ï¼Œæ·»åŠ æ¡æ‰‹æ‹¦æˆªå™¨
         webSocketHandlerRegistry.addHandler(handler, "/ws/sockjs").addInterceptors(new MyHandShakeInterceptor()).withSockJS();
     }
     

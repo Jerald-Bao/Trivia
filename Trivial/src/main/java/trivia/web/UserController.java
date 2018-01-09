@@ -1,5 +1,6 @@
 package trivia.web;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,42 +19,40 @@ import trivia.dao.UserDao;
 import trivia.domain.User;
 
 /**
- * ÓÃ»§¿ØÖÆÆ÷
+ * ç”¨æˆ·æ§åˆ¶å™¨
  */
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
-    @Resource
-    private UserDao userDao;
+	@Resource
+	private UserDao userDao;
 
-    @Autowired
-    private UserService userService;
-    
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(@Param("username") String username,@Param("password") String password, HttpServletRequest request) {
-    	
-    	HttpSession session=request.getSession();
-    	Map<String,Object> data = new HashMap<String,Object>();
-    	
-    	if(username==null){
-    		data.put("msg","ÓÃ»§Ãû²»ÄÜÎª¿Õ!");
-        	return new ModelAndView("redirect:/login.jsp",data);
-    	}
-    	else if(password==null){
-    		data.put("msg","ÃÜÂë²»ÄÜÎª¿Õ!");
-        	return new ModelAndView("redirect:/login.jsp",data);
-    	}
-    	else {
-    		User user=userService.userValidate(username,password);   
-            if (user==null) {
-                data.put("msg","ÓÃ»§Ãû²»´æÔÚ»òÃÜÂë´íÎó!");
-            	return new ModelAndView("redirect:/login.jsp",data);
-            } else {
-              	session.setAttribute("user", user);
-            	data.put("user",user);
-            	return new ModelAndView("lobby",data);
-            }
-    	}
-    }
+	@Autowired
+	private UserService userService;
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ModelAndView login(@Param("username") String username, @Param("password") String password,
+			HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+		// System.out.println(request.getCharacterEncoding());//null
+		try {
+			request.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		Map<String, Object> data = new HashMap<String, Object>();
+
+		User user = userService.userValidate(username, password);
+		if (user == null) {
+			data.put("msg", "ç”¨æˆ·ä¸å­˜åœ¨æˆ–å¯†ç é”™è¯¯!");
+			return new ModelAndView("redirect:/index.jsp", data);
+		} else {
+			session.setAttribute("user", user);
+			data.put("user", user);
+			return new ModelAndView("redirect:/lobby.jsp", data);
+		}
+
+	}
 
 }

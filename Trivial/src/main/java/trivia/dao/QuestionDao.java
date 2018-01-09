@@ -1,9 +1,11 @@
 package trivia.dao;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import trivia.domain.Question;
 
 public interface QuestionDao {
-	Question findByCategory(String category);
+	List<Question> findByCategory(String category);
        /**
 	     * @param category
 	     * @param description

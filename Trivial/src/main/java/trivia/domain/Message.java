@@ -1,12 +1,19 @@
 package trivia.domain;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Message {
 	private int roomId;
     private int fromId;
     private String fromName;
-    private int[] toId= {0,0,0,0};
-    private String operation;//roll,chooseAnswer,getHelp..
+    private ArrayList<Integer> toId;
+    private String request;//roll,chooseAnswer,getHelp..
+    private int from;//房间列表起始位置
+    private int to;
+    private String category;
+    private int playerAnswer;
     private Timestamp messageDate;
     
     public Message() {
@@ -35,24 +42,53 @@ public class Message {
     public void setFromName(String fromName) {
         this.fromName = fromName;
     }
-
-    public int[] getToId() {
+    public ArrayList<Integer> getToId() {
         return toId;
     }
+	public void setToId(ArrayList<Integer> toId) {
+		this.toId = toId;
+	}
+    public String getRequest() {
+		return request;
+	}
 
-    public void setToId(int[] toId) {
-        this.toId = toId;
-    }
+	public void setRequest(String request) {
+		this.request = request;
+	}
 
-    public String getOperation() {
-        return operation;
-    }
+	public int getFrom() {
+		return from;
+	}
 
-    public void setOperation(String operation) {
-        this.operation = operation;
-    }
+	public void setFrom(int from) {
+		this.from = from;
+	}
 
-    public Timestamp getMessageDate() {
+	public int getTo() {
+		return to;
+	}
+
+	public void setTo(int to) {
+		this.to = to;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+	public int getPlayerAnswer() {
+		return playerAnswer;
+	}
+
+	public void setPlayerAnswer(int playerAnswer) {
+		this.playerAnswer = playerAnswer;
+	}
+
+	public Timestamp getMessageDate() {
         return messageDate;
     }
 
@@ -67,7 +103,7 @@ public class Message {
                 ", fromId=" + fromId +
                 ", fromName='" + fromName + '\'' +
                 ", toId=" + toId +
-                ", operation='" + operation + '\'' +
+                ", request='" + request + '\'' +
                 ", messageDate=" + messageDate +
                 '}';
     }
