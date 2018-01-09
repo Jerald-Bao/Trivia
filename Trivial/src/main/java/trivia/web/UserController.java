@@ -57,7 +57,7 @@ public class UserController {
             } else {
               	session.setAttribute("user", user);
             	data.put("user",user);
-            	return new ModelAndView("lobby",data);
+            	return new ModelAndView("redirect:/login.html",data);
             }
     	}
     }

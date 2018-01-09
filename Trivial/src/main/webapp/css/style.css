@@ -1,0 +1,536 @@
+a:hover {color:#FF00FF;}
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: normal;
+  font-family: "hupo", "微软雅黑";
+}
+#background{
+  width: 1600px;
+  height: 900px;
+  margin: 0 auto;
+}
+.pageInfo
+{
+	text-align:center;
+	margin:0 auto;
+}
+.createRoom{
+	text-align:left;
+}
+#page{
+	margin-left:20px;
+	margin-right:20px;
+	font-size:20px;
+}
+.box {
+  width: 1600px;
+  height: 900px;
+  margin: 0 auto;
+}
+.lobby{
+}
+.lobby-section
+{
+	width:200px;
+	height:100px;
+	margin-top:50px;
+}
+.main {
+  background: url(../images/bg.png);
+  color: #000;
+  position: relative;
+  overflow: hidden;
+  display:none;
+}
+.main .left{
+	overflow: hidden;
+	right:300px;
+	height:900px;
+	width:1300px;
+}
+.main ul {
+  position: absolute;
+  left: 0px;
+  top: 500px;
+  list-style: none;
+}
+.main span,
+.main strong,
+.main em,
+.main i {
+  display: block;
+}
+.main li {
+  float: left;
+  width: 93px;
+  position: absolute;
+  bottom: 0px;
+}
+.main li span {
+  background: url("../images/plate.png");
+  width: 93px;
+  height: 39px;
+  position: absolute;
+  bottom: 0px;
+  z-index: 99;
+}
+.main li strong {
+  background: url("../images/bottom.png");
+  position: absolute;
+  bottom: 0px;
+  width: 92px;
+}
+.main li em {
+  background: url("../images/fire.png");
+  width: 92px;
+  height: 54px;
+  position: absolute;
+}
+.main li i {
+  width: 135px;
+  height: 135px;
+  position: absolute;
+  left: -18px;
+  bottom: -38px;
+}
+.main li .red {
+  background: url("../images/redz.png");
+}
+.main .p0 li .haloS {
+  background: url("../images/bbg.png") no-repeat center;
+  background-size: 160px 160px;
+  top:-70px;
+  display: none;
+  z-index: 100;
+}
+.main .p1 li .haloS {
+  background: url("../images/rbg.png") no-repeat center;
+  background-size: 160px 160px;
+  top:-70px;
+  display: none;
+  z-index: 100;
+}
+.main .p2 li .haloS {
+  background: url("../images/gbg.png") no-repeat center;
+  background-size: 160px 160px;
+  top:-70px;
+  display: none;
+  z-index: 100;
+}
+.main .p3 li .haloS {
+  background: url("../images/wbg.png") no-repeat center;
+  background-size: 160px 160px;
+  top:-70px;
+  display: none;
+  z-index: 100;
+}
+.main .gHover {
+  background: url("../images/gselect.png");
+}
+.main .wHover {
+  background: url("../images/wselect.png");
+}
+.main .rHover {
+  background: url("../images/rselect.png");
+}
+.main .bHover {
+  background: url("../images/bselect.png");
+}
+.main .di {
+  height: 92px;
+  background-position: 0 -156px;
+}
+.main .di_gb {
+  left: -18px;
+  bottom: 40px;
+}
+.main .zhong {
+  height: 174px;
+  background-position: 0 -74px;
+}
+.main .zhong_bg {
+  left: -22px;
+  bottom: 120px;
+}
+.main .gao {
+  height: 248px;
+}
+.main .gao_bg {
+  left: -18px;
+  bottom: 190px;
+}
+.main .fire {
+  background: url("../images/fire.png");
+  height: 54px;
+}
+.main ._3 span {
+  bottom: 77px;
+}
+.main ._4 span {
+  bottom: 77px;
+}
+.main ._5 span {
+  bottom: 149px ;
+}
+.main ._6 span {
+  bottom: 149px ;
+}
+.main ._7 span {
+  bottom: 223px;
+}
+.main ._8 span {
+  bottom: 223px;
+}
+.main ._9 em {
+  bottom: 265px;
+  z-index: 99;
+}
+.main .huo_d {
+  left: -18px;
+  bottom: 225px;
+}
+.main ._10 em {
+  bottom: 347px;
+  z-index: 99;
+}
+.main ._11 span {
+  bottom: 149px;
+}
+.main ._11 em {
+  bottom: 398px;
+  z-index: 99;
+}
+.main ._0 span {
+  background: url("../images/terminal.png") center no-repeat;
+  background-size:93px 93px;
+  height: 191px;
+  width: 191px;
+  left: -47px;
+  bottom: -47px;
+}
+.main .huo_g {
+  left: -18px;
+  bottom: 360px;
+}
+.main .boss {
+  width: 76px;
+  height: 70px;
+  position: absolute;
+  z-index: 999;
+  display: none;
+}
+
+.main ._1{
+  left: 310px;
+  top: 120px;
+}
+.main ._2{
+  left: 310px;
+  top: 330px;
+}
+.main ._3{
+  left: 310px;
+  top: 540px;
+}
+.main ._4{
+  left: 310px;
+  top: 750px;
+}
+
+.main .content_1{
+  position: absolute;
+  left: 0px;
+  top: 210px;
+  list-style: none;
+}
+.main .content_2{
+  position: absolute;
+  left: 0px;
+  top: 420px;
+  list-style: none;
+}
+.main .content_3{
+  position: absolute;
+  left: 0px;
+  top: 630px;
+  list-style: none;
+}
+.main .content_4{
+  position: absolute;
+  left: 0px;
+  top: 840px;
+  list-style: none;
+}
+.main .boss div {
+  background: url("../images/white.png") no-repeat;
+  width: 76px;
+  height: 70px;
+  position: relative;
+}
+.main .space {
+  font-size: 30px;
+  position: absolute;
+  left: 500px;
+  top: 50px;
+  color: #00ff00;
+  display: none;
+}
+.main .space span {
+  margin-right: 10px;
+  display: inline-block;
+}
+.main .space p {
+  display: inline-block;
+}
+.main .percentage {
+  font-size: 80px;
+  opacity: .3;
+  position: absolute;
+  left: 500px;
+  top: 150px;
+  color: #fff;
+  display: none;
+}
+.main .bubble {
+  position: absolute;
+  background: black;
+}
+.main .trigger {
+  background: url("../images/machine.png") no-repeat;
+  width: 277px;
+  height: 328px;
+  position: absolute;
+  left: 220px;
+  top: 0px;
+}
+.main .water {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  background: url(../images/water.png) no-repeat center;
+  background-size: 100% ;
+  top: 320px;
+  left: 124px;
+  z-index: 999;
+}
+.main .glass {
+  position: absolute;
+  width: 76px;
+  height: 76px;
+  left: 87px;
+  top: 101px;
+  background: url("../images/machine_b.png");
+  overflow: hidden;
+  border-radius: 50%;
+}
+.main .glass .lnk {
+  height: 35px;
+  width: 76px;
+  position: absolute;
+  bottom: 0px;
+  z-index: 99;
+  background: #001920;
+}
+.main .explain {
+  position: absolute;
+  top: 260px;
+  left: 1300px;
+  font-size: 20px;
+  text-align: center;
+  line-height: 30px;
+  min-width: 100px;
+}
+
+.main .dice {
+  display: block;
+  box-sizing: border-box;
+  border: 2px solid #000;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  bottom: 40px;
+  right: 58px;
+  padding: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  z-index: 20;
+  overflow:hidden;
+}
+.main .dice span {
+  display: block;
+  width: 110px;
+  height: 110px;
+  box-sizing: border-box;
+  border: 2px solid #000;
+  border-radius: 50%;
+  background: url(../images/dice.png) no-repeat center;
+  background-size:80px 80px;
+  overflow:visible;
+}
+.main .halo{
+	position: absolute;
+	display: block;
+	width: 300px;
+	height: 100px;
+	left:0px;
+	top:120px;
+	background: url(../images/bbg.png) no-repeat center;
+	background-size:280px 90px;
+}
+.main .username{
+	color: #bbbbbb;
+	position:relative;
+	top:37px;
+	font-size: 20px;
+	text-align:center;
+}
+
+.main .qMainBg{
+	position:absolute;
+	top:100px;
+	left:350px;
+	width:800px;
+	height:175px;
+	z-index:1000;
+}
+.main .qs1Bg{
+	position:absolute;
+	top:330px;
+	left:380px;
+	width:740px;
+	height:70px;
+	z-index:1000;
+}
+.main .qs2Bg{
+	position:absolute;
+	top:470px;
+	left:380px;
+	width:740px;
+	height:70px;
+	z-index:1000;
+}
+.main .qs3Bg{
+	position:absolute;
+	top:610px;
+	left:380px;
+	width:740px;
+	height:70px;
+	z-index:1000;
+}
+.main .qs4Bg{
+	position:absolute;
+	top:750px;
+	left:380px;
+	width:740px;
+	height:70px;
+	z-index:1000;
+}
+.main #description
+{
+	position:absolute;
+	top:167px;
+	left:430px;
+	font-size:40px;
+	text-align:center;
+	width:600px;
+	z-index:1001;
+}
+.main #choice1
+{
+	position:absolute;
+	top:337px;
+	left:430px;
+	font-size:40px;
+	text-align:center;
+	width:600px;
+	z-index:1001;
+}
+.main #choice2
+{
+	position:absolute;
+	top:477px;
+	left:430px;
+	font-size:40px;
+	text-align:center;
+	width:600px;
+	z-index:1001;
+}
+.main #choice3
+{
+	position:absolute;
+	top:617px;
+	left:430px;
+	font-size:40px;
+	text-align:center;
+	width:600px;
+	z-index:1001;
+}
+.main #choice4
+{
+	position:absolute;
+	top:757px;
+	left:430px;
+	font-size:40px;
+	text-align:center;
+	width:600px;
+	z-index:1001;
+}
+.main .coinNum
+{
+	position:absolute;
+	left:160px;
+	top:200px;
+	font-size:30px;
+	color:#ffffff;
+	font-weight:600;
+}
+.main .coin
+{
+	position:absolute;
+	left:110px;
+	top:200px;
+	width:40px;
+	height:40px;
+}
+.main .exit {
+  display: block;
+  box-sizing: border-box;
+  border: 2px solid #000;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  padding: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  z-index: 20;
+  overflow:hidden;
+}
+
+.main .exit span {
+  display: block;
+  position:absolute;
+  width: 110px;
+  height: 110px;
+  box-sizing: border-box;
+  border: 2px solid #000;
+  border-radius: 50%;
+  background: url(../images/replay.png) no-repeat center;
+  background-size:80px 80px;
+  overflow:visible;
+}
+
+canvas {
+    display: block;
+    left: 0;
+    position: absolute;
+    top: 0;
+    background: #312f31;
+}
