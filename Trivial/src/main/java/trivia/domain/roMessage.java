@@ -1,20 +1,12 @@
 package trivia.domain;
 
 public class roMessage extends returnMessage{
-	private static String type="Roll";
 	private int preRollPos;
 	private int curRollPos;
 	private int rollNum;
 	private Question question;
 	private int location;
 	
-	
-	public static String getType() {
-		return type;
-	}
-	public static void setType(String type) {
-		roMessage.type = type;
-	}
 	public int getPreRollPos() {
 		return preRollPos;
 	}

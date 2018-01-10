@@ -4,19 +4,12 @@ package trivia.domain;
 import java.util.List;
 
 public class erMessage extends returnMessage{
-	private static String type="EnterRoom";
 	private Player user;
     private List<Player> players;
     private boolean gamestart;
+    private int roomId;
 
-    
-	public static String getType() {
-		return type;
-	}
-	public static void setType(String type) {
-		erMessage.type = type;
-	}
-	public Player getUser() {
+    public Player getUser() {
 		return user;
 	}
 	public void setUser(Player user) {
@@ -33,5 +26,11 @@ public class erMessage extends returnMessage{
 	}
 	public void setGamestart(boolean gamestart) {
 		this.gamestart = gamestart;
+	}
+	public int getRoomId() {
+		return roomId;
+	}
+	public void setRoomId(int roomId) {
+		this.roomId = roomId;
 	}
 }

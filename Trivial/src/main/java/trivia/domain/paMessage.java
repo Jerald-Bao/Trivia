@@ -1,20 +1,11 @@
 package trivia.domain;
 
 public class paMessage extends returnMessage{
-	private static String type="PlayerAnswer";
 	private int ansUserPos;
 	private int playersAnswer;
 	private int correctAnswer;
 	private int point;
 	private boolean gameOver;
-	
-	public static String getType() {
-		return type;
-	}
-
-	public static void setType(String type) {
-		paMessage.type = type;
-	}
 
 	public int getAnsUserPos() {
 		return ansUserPos;

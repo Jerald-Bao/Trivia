@@ -13,7 +13,7 @@ public class Message {
     private int from;//房间列表起始位置
     private int to;
     private String category;
-    private int playerAnswer;
+    private int playersAnswer;
     private Timestamp messageDate;
     
     public Message() {
@@ -80,14 +80,6 @@ public class Message {
 		this.category = category;
 	}
 	
-	public int getPlayerAnswer() {
-		return playerAnswer;
-	}
-
-	public void setPlayerAnswer(int playerAnswer) {
-		this.playerAnswer = playerAnswer;
-	}
-
 	public Timestamp getMessageDate() {
         return messageDate;
     }
@@ -107,5 +99,13 @@ public class Message {
                 ", messageDate=" + messageDate +
                 '}';
     }
+
+	public int getPlayersAnswer() {
+		return playersAnswer;
+	}
+
+	public void setPlayersAnswer(int playersAnswer) {
+		this.playersAnswer = playersAnswer;
+	}
 
 }

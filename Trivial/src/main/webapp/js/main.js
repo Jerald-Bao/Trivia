@@ -46,8 +46,9 @@ function enterRoom()
 			n=json.user.position;
 		userId=ids[n];
 		mainFn();
-		if (json.gameStart)
+		if (json.gamestart)
 			gameStart();
+		roomId=json.roomId;
 	}
 	else
 	{
@@ -81,7 +82,7 @@ function sendAnswer(ans)
 	jsonSend.roomId=roomId;
 	websocket.send(JSON.stringify(jsonSend));
 }
-function receiveCreateRoom
+function receiveCreateRoom()
 {
 	for (var i=0;i<4;i++)
 	{
@@ -97,7 +98,7 @@ function receiveCreateRoom
 	n=n;
 	userId=ids[n];
 	mainFn();
-	
+	roomId=json.roomId;
 }
 function receiveExitRoom()
 {
@@ -141,17 +142,17 @@ function displayAnswer()
 {
 	switch (json.playersAnswer)
 	{
-		case 'A':choice1.style.color='#ff0000';break;
-		case 'B':choice2.style.color='#ff0000';break;
-		case 'C':choice3.style.color='#ff0000';break;
-		case 'D':choice4.style.color='#ff0000';break;
+		case '1':choice1.style.color='#ff0000';break;
+		case '2':choice2.style.color='#ff0000';break;
+		case '3':choice3.style.color='#ff0000';break;
+		case '4':choice4.style.color='#ff0000';break;
 	}
 	switch (json.correctAnswer)
 	{
-		case 'A':choice1.style.color='#00ff00';break;
-		case 'B':choice2.style.color='#00ff00';break;
-		case 'C':choice3.style.color='#00ff00';break;
-		case 'D':choice4.style.color='#00ff00';break;
+		case '1':choice1.style.color='#00ff00';break;
+		case '2':choice2.style.color='#00ff00';break;
+		case '3':choice3.style.color='#00ff00';break;
+		case '4':choice4.style.color='#00ff00';break;
 	}
 	if (json.result==false)
 	{

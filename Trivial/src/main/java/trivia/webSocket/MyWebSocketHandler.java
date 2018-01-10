@@ -8,6 +8,7 @@ import org.springframework.web.socket.*;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -25,8 +26,8 @@ public class MyWebSocketHandler implements WebSocketHandler{
     @Autowired
     private UserDao userDao;
     
-    private static List<GameRoom> roomList;
-	private static List<User> onlineUser;
+    private static List<GameRoom> roomList=new ArrayList();
+	private static List<User> onlineUser=new ArrayList();
 
 	
     public static List<GameRoom> getRoomList() {
@@ -46,7 +47,7 @@ public class MyWebSocketHandler implements WebSocketHandler{
 
     //握手实现连接后
     public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
-        int uid = (Integer) webSocketSession.getAttributes().get("uid");
+        int uid =  (Integer) webSocketSession.getAttributes().get("uid");
         if (userSocketSessionMap.get(uid) == null) {
             userSocketSessionMap.put(uid, webSocketSession);
             onlineUser.add(userDao.findByUserid(uid));
@@ -69,7 +70,7 @@ public class MyWebSocketHandler implements WebSocketHandler{
         rmsg=msgService.handleMessage(msg,uid);
         
         //发送Socket信息给room中user
-        for(int i:msg.getToId())
+        for(int i:rmsg.getToId())
         {
         	sendMessageToUser(i, new TextMessage(new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create().toJson(rmsg)));
         }

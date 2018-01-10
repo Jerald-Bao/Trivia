@@ -2,7 +2,6 @@ package trivia.domain;
 
 public class userMessage extends returnMessage{
 	private User user;
-
 	public User getUser() {
 		return user;
 	}

@@ -1,5 +1,6 @@
 package trivia.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameRoom {
@@ -11,7 +12,7 @@ public class GameRoom {
 	private Game game;
 	
 	public GameRoom(){
-		
+		players=new ArrayList();
 	}
 	public int getRoomId()
 	{

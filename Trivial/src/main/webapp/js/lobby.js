@@ -1,6 +1,6 @@
 
 var wsUri ="ws://localhost:8080/ssm/ws";
-var websocket;
+var websocket
 var page;
 var json;
 var roomList;
@@ -29,6 +29,7 @@ function initWebSocket() {
 }  
 
 function onOpen(evt) { 
+	alert('');
 	requestUser();
 	requestRoomList(0,9);
 }  
@@ -39,9 +40,11 @@ function onClose(evt) {
 
 function onMessage(evt) { 
 	json = JSON.parse(evt.data);
-	alert('Message Recieved');
-	if (json.type=="user")
+		alert(evt.data);
+	if (json.type=="User")
+	{
 		displayUser();
+	}
 	if (json.type=="RoomList")
 		displayRoomList();
 	if (json.type=="EnterRoom")
@@ -61,7 +64,7 @@ function onMessage(evt) {
 	if (json.type=="ExitRoom")
 		receiveExitRoom();
 	if (json.type=="CreateRoom")
-		receiveExitRoom();
+		receiveCreateRoom();
 		
 }   
 
@@ -105,21 +108,19 @@ function displayRoomList()
 			tds[1].innerHTML='';
 			tds[2].innerHTML='';
 		}
-		for (var i=0;i<json.roomList.length;i++)
+		for (var i=0;i<json.RoomList.length;i++)
 		{
 			var tr=trs[i+1];
 			(function(i){
 				tr.onclick = function(){ 
-					requestEnterRoom(json.roomList[i].roomId);
+					requestEnterRoom(json.RoomList[i].roomId);
 				}
 				})(i);
 			var tds=tr.getElementsByTagName('td');
-			tds[0].innerHTML=json.roomList[i].roomId;
-			tds[1].innerHTML=json.roomList[i].players;
-			tds[2].innerHTML=json.roomList[i].host;
+			tds[0].innerHTML=json.RoomList[i].roomId;
+			tds[1].innerHTML=json.RoomList[i].gamerNum;
+			tds[2].innerHTML=json.RoomList[i].host.playerName;
 		}
-		
-		pageNum=parseInt(json.from/10)+1;
 		var pageNum_=document.getElementById('page');
 		pageNum_.innerHTML='<B>'+pageNum+'</B>';
 	}

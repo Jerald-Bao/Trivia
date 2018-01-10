@@ -1,6 +1,8 @@
 package trivia.web;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -57,42 +59,52 @@ public class MessageServiceImpl implements MessageService{
 		User user=userDao.findByUserid(fromId);
 		umsg.setUser(user);
 		umsg.getToId().add(fromId);
+		umsg.setType("User");
 		return umsg;
 	}
 	
 	public rlMessage roomList(Message msg,int fromId) {
 		rlMessage rlmsg=new rlMessage();
 		List<GameRoom> grs=new ArrayList<GameRoom>();
-		for(int i=msg.getFrom()-1;i<msg.getTo();i++) {
+		for(int i=msg.getFrom();i<(msg.getTo()>MyWebSocketHandler.getRoomList().size()?MyWebSocketHandler.getRoomList().size():msg.getTo());i++) {
 			grs.add(MyWebSocketHandler.getRoomList().get(i));
 		}
 		rlmsg.setRoomList(grs);
 		rlmsg.getToId().add(fromId);
+		rlmsg.setType("RoomList");
 		return rlmsg;
 	}
 	
 	public erMessage enterRoom(Message msg,int fromId) {
 		erMessage ermsg=new erMessage();
         ermsg.setResult(false);
+        ermsg.setType("EnterRoom");
+        ermsg.setRoomId(msg.getRoomId());
 		//从roomList找到gameRoom
         for(GameRoom gr:MyWebSocketHandler.getRoomList()){
         	if(gr.getRoomId()==msg.getRoomId()){
         		 List<Player> players=gr.getPlayers();
-        		 ArrayList<Integer> remainPos=new ArrayList<Integer>();
 
         		 //添加新玩家
+        		 int pos=0;
         		 if(gr.getGamerNum()<4)//存在空位
                  {
 	        		 //得到空余位置
-	        		 for(int i=0;i<4;i++){
-	        			 remainPos.add(i);
-	        		 }
-	        		 for(Player p:players){
-	        			 int pos=p.getPosition();
-	        			 remainPos.remove(pos);
-	        		 }
+        			 boolean flag=true;
+	        		 for (int i=0;i<4;i++)
+	        		 {
+	        			 flag=true;
+	        			 for (Player p:players)
+	        				 if (p.getPosition()==i)
+	        					 flag=false;
+	        			 if (flag)
+	        			 {
+	        				 pos=i;
+	        				 break;
+	        			 }
+	        		 } 
 	        		 
-        			 int userPos=remainPos.get(0);
+        			 int userPos=pos;
         			 Player user=new Player(fromId,userPos,userDao.findByUserid(fromId).getUsername());
         			 ermsg.setUser(user);
         			 ermsg.setPlayers(players);
@@ -105,7 +117,8 @@ public class MessageServiceImpl implements MessageService{
         			 }
         			 ermsg.setResult(true);
         		 }
-        		 if(gr.getGamerNum()==4) {
+        		 //TODO
+        		 if(gr.getGamerNum()==2) {
         			gr.setGame(new Game(gr.getPlayers()));
  					gr.getGame().setPopQuestions(quesDao.findByCategory("Pop"));
  					gr.getGame().setScienceQuestions(quesDao.findByCategory("Science"));
@@ -121,15 +134,17 @@ public class MessageServiceImpl implements MessageService{
 
 	public crMessage createRoom(Message msg,int fromId) {
 		crMessage crmsg=new crMessage();
+		crmsg.setType("CreateRoom");
 		GameRoom gr=new GameRoom();
 		gr.setRoomId(MyWebSocketHandler.getRoomList().size()+1);
 		Player host=new Player(fromId,0,userDao.findByUserid(fromId).getUsername());
 		gr.setHost(host);
 		gr.setGamerNum(gr.getGamerNum()+1);
-		
+		gr.getPlayers().add(host);
 		MyWebSocketHandler.getRoomList().add(gr);
 		crmsg.setRoomId(gr.getRoomId());
 		crmsg.setHost(host);
+		
 		crmsg.getToId().add(fromId);
 		
 		return crmsg;
@@ -137,6 +152,7 @@ public class MessageServiceImpl implements MessageService{
 
 	public exMessage exitRoom(Message msg,int fromId) {
 		exMessage exmsg=new exMessage();
+		exmsg.setType("ExitRoom");
 		exmsg.setResult(true);
 		//寻找退出房间
 		for(GameRoom gr:MyWebSocketHandler.getRoomList()) {
@@ -167,12 +183,7 @@ public class MessageServiceImpl implements MessageService{
 				break;
 			}
 		}
-		List<GameRoom> grs=new ArrayList<GameRoom>();
-		for(int i=0;i<10;i++) {
-			grs.add(MyWebSocketHandler.getRoomList().get(i));
-		}
-		exmsg.setRoomList(grs);
-		
+		exmsg.setExitUserId(fromId);
 		return exmsg;
 	}
 
@@ -206,7 +217,8 @@ public class MessageServiceImpl implements MessageService{
 
 	public roMessage roll(Message msg,int fromId) {
 		roMessage romsg=new roMessage();
-		int rollNum=0;
+		romsg.setType("Roll");
+		int rollNum=0;	
 		int categoryLocation=0;
 		int curRollPos=0;
 		int preRollPos=0;
@@ -256,6 +268,7 @@ public class MessageServiceImpl implements MessageService{
 	
 	public paMessage playersAnswer(Message msg,int fromId) {
 		paMessage pamsg=new paMessage();
+		pamsg.setType("PlayersAnswer");
 		pamsg.setGameOver(false);
 		pamsg.setResult(false);
 		int winPoint=1;
@@ -272,7 +285,7 @@ public class MessageServiceImpl implements MessageService{
 					if(p.getPlayerId()==fromId) {
 						curPos=p.getPosition();
 						//回答正确
-						if(msg.getPlayerAnswer()==correctAns) {
+						if(msg.getPlayersAnswer()==correctAns) {
 							point=game.addPoint(p,winPoint);
 							pamsg.setResult(true);
 							//如果玩家获胜
@@ -306,7 +319,7 @@ public class MessageServiceImpl implements MessageService{
 		
 		pamsg.setAnsUserPos(curPos);
 		pamsg.setCorrectAnswer(correctAns);
-		pamsg.setPlayersAnswer(msg.getPlayerAnswer());
+		pamsg.setPlayersAnswer(msg.getPlayersAnswer());
 		pamsg.setPoint(point);
 		return pamsg;
 	}
