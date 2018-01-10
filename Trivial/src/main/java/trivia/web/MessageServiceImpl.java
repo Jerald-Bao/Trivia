@@ -279,14 +279,14 @@ public class MessageServiceImpl implements MessageService{
 							if(point==6) {
 								pamsg.setGameOver(true);
 								int[] playersId= {0,0,0,0};
-								for(Player p:game.getPlayers()) {							
-									int index=p.getPosition();
-									playersId[index]=p.getPlayerId();
+								for(Player player:game.getPlayers()) {							
+									int index=player.getPosition();
+									playersId[index]=player.getPlayerId();
 									
-									if(p.getPlayerId()==fromId) 
-										userDao.winnerUpdateById(p.getPlayerId());
+									if(player.getPlayerId()==fromId) 
+										userDao.winnerUpdateById(player.getPlayerId());
 									else
-										userDao.loserUpdateById(p.getPlayerId());
+										userDao.loserUpdateById(player.getPlayerId());
 								}
 //								historyDao.addRecord(playersId,fromId,game.getPoint());
 								MyWebSocketHandler.getRoomList().remove(gr);
