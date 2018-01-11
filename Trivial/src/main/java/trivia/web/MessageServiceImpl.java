@@ -165,6 +165,9 @@ public class MessageServiceImpl implements MessageService {
 				}
 				// 仍有玩家在房间
 				for (Player p : gr.getPlayers()) {
+					exmsg.getToId().add(p.getPlayerId());
+				}
+				for (Player p : gr.getPlayers()) {
 					// 找到退出玩家
 					if (p.getPlayerId() == fromId) {
 						// 移除退出玩家
@@ -175,8 +178,8 @@ public class MessageServiceImpl implements MessageService {
 							Player host = gr.getPlayers().get(0);
 							gr.setHost(host);
 						}
-					}
-					exmsg.getToId().add(p.getPlayerId());
+						break;
+					}	
 				}
 				exmsg.setHost(gr.getHost());
 				break;
