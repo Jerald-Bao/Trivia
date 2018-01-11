@@ -125,7 +125,7 @@ public class MessageServiceImpl implements MessageService {
 					gr.getGame().setRockQuestions(quesDao.findByCategory("Rock"));
 					ermsg.setGamestart(true);
 				}
-				return ermsg;
+				break;
 			}
 		}
 		return ermsg;
@@ -244,7 +244,7 @@ public class MessageServiceImpl implements MessageService {
 							categoryLocation = game.move(p, rollNum);
 							category = game.getCurrentCategory(categoryLocation);
 							question = game.getQuestion(category);
-							game.setCurrengQuestion(question);
+							game.setCurrentQuestion(question);
 						}
 						curRollPos = p.getPosition();
 						if (curRollPos == 3) {
@@ -279,7 +279,7 @@ public class MessageServiceImpl implements MessageService {
 		for (GameRoom gr : MyWebSocketHandler.getRoomList()) {
 			if (gr.getRoomId() == msg.getRoomId()) {
 				Game game = gr.getGame();
-				correctAns = game.getCurrengQuestion().getAnswer();
+				correctAns = game.getCurrentQuestion().getAnswer();
 
 				for (Player p : game.getPlayers()) {
 					if (p.getPlayerId() == fromId) {
@@ -289,6 +289,7 @@ public class MessageServiceImpl implements MessageService {
 							point = game.addPoint(p, winPoint);
 							pamsg.setResult(true);
 							// 如果玩家获胜
+							//TODO
 							if (point == 6) {
 								pamsg.setGameOver(true);
 								int[] playersId = { 0, 0, 0, 0 };

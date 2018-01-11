@@ -9,7 +9,7 @@ public class Game {
 	private List<Question> sportsQuestions;
 	private List<Question> rockQuestions;
 	private List<Player> players;
-	private Question currengQuestion;
+	private Question currentQuestion;
 	private int[] location= {0,0,0,0};
 	private int[] point= {0,0,0,0};
 	private int[] lock= {0,0,0,0};
@@ -128,12 +128,12 @@ public class Game {
 		this.players = players;
 	}
 
-	public Question getCurrengQuestion() {
-		return currengQuestion;
+	public Question getCurrentQuestion() {
+		return currentQuestion;
 	}
 
-	public void setCurrengQuestion(Question currengQuestion) {
-		this.currengQuestion = currengQuestion;
+	public void setCurrentQuestion(Question currengQuestion) {
+		this.currentQuestion = currengQuestion;
 	}
 
 	public int[] getLocation() {
