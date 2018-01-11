@@ -158,7 +158,7 @@ function displayAnswer()
 	{
 		block(currentPlayer);
 	}
-	coins[json.position]=json.point;
+	coins[json.ansUserPos]=json.point;
 	displayCoins();
 	setTimeout('questionHTML.style.display=\'none\';',2000);
 	if (json.gameOver)
@@ -188,28 +188,28 @@ function displayQuestion()
 	if (currentPlayer==n)
 	{
 		choice1.onclick=function(){
-			sendAnswer('A'); 
+			sendAnswer('1'); 
 			choice1.onclick=null;
 			choice2.onclick=null;
 			choice3.onclick=null;
 			choice4.onclick=null;
 			};
 		choice2.onclick=function(){
-			sendAnswer('B');
+			sendAnswer('2');
 			choice1.onclick=null;
 			choice2.onclick=null;
 			choice3.onclick=null;
 			choice4.onclick=null;
 			};
 		choice3.onclick=function(){
-			sendAnswer('C');
+			sendAnswer('3');
 			choice1.onclick=null;
 			choice2.onclick=null;
 			choice3.onclick=null;
 			choice4.onclick=null;
 		};
 		choice4.onclick=function(){
-			sendAnswer('D');
+			sendAnswer('4');
 			choice1.onclick=null;
 			choice2.onclick=null;
 			choice3.onclick=null;

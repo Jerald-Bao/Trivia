@@ -29,7 +29,6 @@ function initWebSocket() {
 }  
 
 function onOpen(evt) { 
-	alert('');
 	requestUser();
 	requestRoomList(0,9);
 }  
@@ -40,11 +39,9 @@ function onClose(evt) {
 
 function onMessage(evt) { 
 	json = JSON.parse(evt.data);
-		alert(evt.data);
+	alert(evt.data);
 	if (json.type=="User")
-	{
 		displayUser();
-	}
 	if (json.type=="RoomList")
 		displayRoomList();
 	if (json.type=="EnterRoom")
@@ -65,7 +62,6 @@ function onMessage(evt) {
 		receiveExitRoom();
 	if (json.type=="CreateRoom")
 		receiveCreateRoom();
-		
 }   
 
 function onError(evt) { 
@@ -188,5 +184,12 @@ function lobbyFn(){
 		requestUser();
 		requestRoomList(0,9);
 	}
+	var refresh=document.getElementsByClassName('refresh')[0];
+	(function(pageNum)
+	{
+		refresh.onclick=function(){
+		requestRoomList((pageNum-1)*10,pageNum*10-1);
+	}
+	})(pageNum);
 }
 lobbyFn();

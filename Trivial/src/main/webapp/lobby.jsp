@@ -44,7 +44,7 @@
         </nav>
         <div class="container-fluid lobby-content" > 
             <div class="row">
-                <main class="ml-sm-auto pt-3 col-sm-auto col-md-auto" role="main">
+                <main class="m-sm-auto pt-3 col-sm-auto col-md-auto" role="main">
                     <h1 id="username">username</h1>
                     <section class="row text-center placeholders" >
                         <div class="col-6 col-sm-3 col-lg-3 placeholder lobby-section">
@@ -66,11 +66,13 @@
                     </section>
                     <h2>Room List</h2>
                     <div class="table-responsive">
+						<span class="createRoom"><B>Create Room</B></span>
+						<img src="images/refresh.png" class="refresh"></img>
                         <table class="table table-striped" id="roomList">
                             <thead>
                                 <tr>
                                     <th>RoomID</th>
-                                    <th>Number</th>
+                                    <th>PlayerNumber</th>
                                     <th>Host</th>
                                 </tr>
                             </thead>
@@ -178,7 +180,6 @@
 							<span id="page"><B>1</B></span>
 							<a id="next">next</a>
 						</div>
-						<span class="createRoom"><B>Create Room</B></span>
                     </div>
                 </main>
             </div>             

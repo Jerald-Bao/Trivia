@@ -6,7 +6,7 @@ import java.util.Random;
 public class Game {
 	private List<Question> popQuestions;
 	private List<Question> scienceQuestions;
-	private List<Question> sportQuestions;
+	private List<Question> sportsQuestions;
 	private List<Question> rockQuestions;
 	private List<Player> players;
 	private Question currengQuestion;
@@ -77,9 +77,9 @@ public class Game {
 			question=this.getScienceQuestions().get(0);
 			this.getScienceQuestions().remove(0);
 			break;
-		case "Sport":
-			question=this.getSportQuestions().get(0);
-			this.getSportQuestions().remove(0);
+		case "Sports":
+			question=this.getSportsQuestions().get(0);
+			this.getSportsQuestions().remove(0);
 			break;
 		case "Rock":
 			question=this.getRockQuestions().get(0);
@@ -108,16 +108,6 @@ public class Game {
 
 	public void setScienceQuestions(List<Question> scienceQuestions) {
 		this.scienceQuestions = scienceQuestions;
-	}
-
-
-	public List<Question> getSportQuestions() {
-		return sportQuestions;
-	}
-
-
-	public void setSportQuestions(List<Question> sportQuestions) {
-		this.sportQuestions = sportQuestions;
 	}
 
 
@@ -171,6 +161,14 @@ public class Game {
 
 	public void setLock(int[] lock) {
 		this.lock = lock;
+	}
+
+	public List<Question> getSportsQuestions() {
+		return sportsQuestions;
+	}
+
+	public void setSportsQuestions(List<Question> sportsQuestions) {
+		this.sportsQuestions = sportsQuestions;
 	}
 	
 }
