@@ -39,7 +39,7 @@ function onClose(evt) {
 
 function onMessage(evt) { 
 	json = JSON.parse(evt.data);
-	alert(evt.data);
+//	alert(evt.data);
 	if (json.type=="User")
 		displayUser();
 	if (json.type=="RoomList")
@@ -57,7 +57,9 @@ function onMessage(evt) {
 	if (json.type=="Question")
 		displayQuestion();
 	if (json.type=="PlayersAnswer")
+		{
 		displayAnswer();
+		}
 	if (json.type=="ExitRoom")
 		receiveExitRoom();
 	if (json.type=="CreateRoom")

@@ -227,7 +227,7 @@ public class MessageServiceImpl implements MessageService {
 		int curRollPos = 0;
 		int preRollPos = 0;
 		String category;
-		Question question = new Question();
+		Question question = null;
 
 		for (GameRoom gr : MyWebSocketHandler.getRoomList()) {
 			if (gr.getRoomId() == msg.getRoomId()) {
@@ -237,17 +237,16 @@ public class MessageServiceImpl implements MessageService {
 					if (p.getPlayerId() == fromId) {
 						int index = p.getPosition();
 						// 如果用户处于被困状态
-						if (game.getLock()[index] == 1) {
-							// 不等于4时脱困
-							if (rollNum != 4) {
-								game.getLock()[index] = 0;
-							}
-							romsg.setQuestion(null);
+						if (game.getLock()[index] == 1 && rollNum == 4) {
+							
+								game.getLock()[index] = 1;
+							
 						} else {
 							categoryLocation = game.move(p, rollNum);
 							category = game.getCurrentCategory(categoryLocation);
 							question = game.getQuestion(category);
 							game.setCurrentQuestion(question);
+							game.getLock()[index]=0;
 						}
 						curRollPos = p.getPosition();
 						if (curRollPos == 3) {
@@ -294,7 +293,7 @@ public class MessageServiceImpl implements MessageService {
 							pamsg.setResult(true);
 							// 如果玩家获胜
 							//TODO
-							if (point == 6) {
+							if (point == 2) {
 								pamsg.setGameOver(true);
 								int[] playersId = { 0, 0, 0, 0 };
 								for (Player player : game.getPlayers()) {

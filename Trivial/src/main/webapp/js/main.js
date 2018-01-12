@@ -142,17 +142,17 @@ function displayAnswer()
 {
 	switch (json.playersAnswer)
 	{
-		case '1':choice1.style.color='#ff0000';break;
-		case '2':choice2.style.color='#ff0000';break;
-		case '3':choice3.style.color='#ff0000';break;
-		case '4':choice4.style.color='#ff0000';break;
+		case 1:choice1.style.color='#ff0000';break;
+		case 2:choice2.style.color='#ff0000';break;
+		case 3:choice3.style.color='#ff0000';break;
+		case 4:choice4.style.color='#ff0000';break;
 	}
 	switch (json.correctAnswer)
 	{
-		case '1':choice1.style.color='#00ff00';break;
-		case '2':choice2.style.color='#00ff00';break;
-		case '3':choice3.style.color='#00ff00';break;
-		case '4':choice4.style.color='#00ff00';break;
+		case 1:choice1.style.color='#00ff00';break;
+		case 2:choice2.style.color='#00ff00';break;
+		case 3:choice3.style.color='#00ff00';break;
+		case 4:choice4.style.color='#00ff00';break;
 	}
 	if (json.result==false)
 	{
@@ -160,7 +160,10 @@ function displayAnswer()
 	}
 	coins[json.ansUserPos]=json.point;
 	displayCoins();
+	
 	setTimeout('questionHTML.style.display=\'none\';',2000);
+
+	
 	if (json.gameOver)
 	{
 		n=-1;
@@ -180,6 +183,10 @@ function displayCoins()
 function displayQuestion()
 {
 	questionHTML.style.display='block';
+	choice1.style.color='#000000';
+	choice2.style.color='#000000';
+	choice3.style.color='#000000';
+	choice4.style.color='#000000';
 	description.innerHTML=json.question.description;
 	choice1.innerHTML=json.question.choiceA;
 	choice2.innerHTML=json.question.choiceB;
@@ -438,9 +445,11 @@ function mainFn() {
 		if (userNames[p]!=null)
 		{
 			coinsHTML[p].style.display='block';
+			coinNum[p].style.display='block';
 			coinsHTML[p].style.top=''+coinTop[p]+'px';
 			coinNum[p].style.top=''+coinTop[p]+'px';
 			span[0].nextElementSibling.style.display = 'block';
+			halo.style.display='block';
 			switch (p){
 				case 0: halo.style.backgroundImage = 'url("images/bbg.png")';
 						halo.style.top = '120px';
@@ -463,6 +472,7 @@ function mainFn() {
 		else
 		{
 			coinsHTML[p].style.display='none';
+			coinNum[p].style.display='none';
 			halo.style.display='none';
 			span[0].nextElementSibling.style.display = 'none';
 		}
