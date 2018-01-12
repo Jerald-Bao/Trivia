@@ -48,7 +48,7 @@ public class MessageServiceImpl implements MessageService {
 			rmsg = playersAnswer(msg, uid);
 			break;
 		default:
-			break;
+			rmsg=null;
 		}
 
 		return rmsg;
@@ -117,6 +117,8 @@ public class MessageServiceImpl implements MessageService {
 					}
 					ermsg.setResult(true);
 				}
+				else
+					break;
 				if (gr.getGamerNum() == 4) {
 					gr.setGame(new Game(gr.getPlayers()));
 					gr.getGame().setPopQuestions(quesDao.findByCategory("Pop"));
@@ -240,6 +242,7 @@ public class MessageServiceImpl implements MessageService {
 							if (rollNum != 4) {
 								game.getLock()[index] = 0;
 							}
+							romsg.setQuestion(null);
 						} else {
 							categoryLocation = game.move(p, rollNum);
 							category = game.getCurrentCategory(categoryLocation);
@@ -272,6 +275,7 @@ public class MessageServiceImpl implements MessageService {
 		pamsg.setGameOver(false);
 		pamsg.setResult(false);
 		int winPoint = 1;
+		int losePoint=0;
 		int point = 0;
 		int correctAns = 0;
 		int curPos = 0;
@@ -310,6 +314,7 @@ public class MessageServiceImpl implements MessageService {
 						else {
 							int index = p.getPosition();
 							game.getLock()[index] = 1;
+							point = game.addPoint(p, losePoint);
 						}
 					}
 					pamsg.getToId().add(p.getPlayerId());
